@@ -1,0 +1,117 @@
+[
+  {
+    "pin": "2426039041",
+    "reason": "reviewed_rail_parcel",
+    "evidence": "User map review on 2026-11-14: rail line, despite assessor present use Vacant(Single-family)."
+  },
+  {
+    "pin": "5724500819",
+    "reason": "reviewed_under_construction",
+    "evidence": "User review on 2026-11-14: under construction, adjacent to 5724500825. Assessor name is Victory Northgate Subsidiary and present use remains Vacant(Commercial)."
+  },
+  {
+    "pin": "5724500825",
+    "reason": "reviewed_under_construction",
+    "evidence": "User review on 2026-11-14: under construction, adjacent to 5724500819. Assessor name is Victory Northgate and present use remains Vacant(Commercial), despite appraised improvements of $36,241,700."
+  },
+  {
+    "pin": "0325049232",
+    "reason": "reviewed_under_construction",
+    "evidence": "User review on 2026-11-14: under construction at 5226 NE 75TH ST, despite assessor present use Vacant(Single-family) and $0 appraised improvements."
+  },
+  {
+    "pin": "2767703656",
+    "reason": "reviewed_apartment_building",
+    "evidence": "User review on 2026-11-14: part of the same Ballard Tallman apartment building as the other listed parcels. Assessor name is Ballard Tallman, use is Apartment(Mixed Use), and all same-name records show $0 improvements."
+  },
+  {
+    "pin": "2767703660",
+    "reason": "reviewed_apartment_building",
+    "evidence": "User review on 2026-11-14: part of the same Ballard Tallman apartment building as the other listed parcels. Assessor name is Ballard Tallman, use is Apartment(Mixed Use), and all same-name records show $0 improvements."
+  },
+  {
+    "pin": "2767703715",
+    "reason": "reviewed_apartment_building",
+    "evidence": "User review on 2026-11-14: part of the same Ballard Tallman apartment building as the other listed parcels. Assessor name is Ballard Tallman, use is Apartment(Mixed Use), and all same-name records show $0 improvements."
+  },
+  {
+    "pin": "2767703725",
+    "reason": "reviewed_apartment_building",
+    "evidence": "User review on 2026-11-14: part of the same Ballard Tallman apartment building as the other listed parcels. Assessor name is Ballard Tallman, use is Apartment(Mixed Use), and all same-name records show $0 improvements."
+  },
+  {
+    "pin": "2767703730",
+    "reason": "reviewed_apartment_building",
+    "evidence": "User review on 2026-11-14: part of the same Ballard Tallman apartment building as the other listed parcels. Assessor name is Ballard Tallman, use is Apartment(Mixed Use), and all same-name records show $0 improvements."
+  },
+  {
+    "pin": "2767703738",
+    "reason": "reviewed_apartment_building",
+    "evidence": "User review on 2026-11-14: part of the same Ballard Tallman apartment building as the other listed parcels. Assessor name is Ballard Tallman, use is Apartment(Mixed Use), and all same-name records show $0 improvements."
+  },
+  {
+    "pin": "2286690000",
+    "reason": "reviewed_completed_condo_building",
+    "evidence": "User review on 2026-11-14: recently completed condominium building at 807 W ARMOUR ST. Assessor classifies it as Condominium(Residential), with a condo-complex PIN and $0 appraised improvements."
+  },
+  {
+    "pin": "8127700280",
+    "reason": "reviewed_completed_building",
+    "evidence": "User review and assessor screenshot on 2026-11-14: recently completed building at 2554 30TH AVE W. The assessor's Valued Year 2026 / Tax Year 2027 row shows $1,001,000 appraised improvements; the public GIS still reports $0 for the certified 2026 tax roll."
+  },
+  {
+    "pin": "4214500000",
+    "reason": "reviewed_condo_building",
+    "evidence": "User review on 2026-11-14: condominium building, Laurel Court Condominium at 5225 50TH AVE NE. The GIS condo-complex record reports only $200 appraised improvements for tax roll year 2026, which does not establish physical vacancy."
+  },
+  {
+    "pin": "8823902795",
+    "reason": "reviewed_improvements_above_threshold",
+    "evidence": "User-provided KCA tax history on 2026-11-14 shows appraised improvements of $7,576,800 for tax year 2026 and $5,119,000 for tax year 2027, account 882390279504. The parcel is classified as Apartment and named Upstairs Downstairs-student housing. Both checked public GIS services omit its assessment values; the hosted service also omits the tax-account link and tax-roll year."
+  },
+  {
+    "pin": "7666702852",
+    "reason": "reviewed_government_owned_parcel",
+    "evidence": "User review and county eRealProperty page verified on 2026-11-14: government-owned parcel. KCA shows $645,000 appraised improvements for tax years 2026 and 2027, but bulk Value History and Account records are zero with tax status X and exemption reason EX. The county public-ownership GIS layer omits this PIN."
+  },
+  {
+    "pin": "7234601120",
+    "reason": "reviewed_government_owned_parcel",
+    "evidence": "User review and county eRealProperty page verified on 2026-11-14: government-owned parcel, Olive Ridge-SHA. GIS shows $18,300,000 appraised improvements for tax year 2026, while bulk assessment/account records show exempt zeros. The county public-ownership GIS layer omits this PIN."
+  },
+  {
+    "pin": "9528101691",
+    "reason": "reviewed_cross_parcel_association",
+    "evidence": "User review on 2026-11-15: associated with 9528101710, Green Lake Village, which carries $105,810,700 in tax-year-2027 improvements. The source name incorrectly says 'imp on Minor 1691', referring to itself; preserve the user-corrected association instead of interpreting all self-references as exclusions."
+  },
+  {
+    "pin": "9528101745",
+    "reason": "reviewed_associated_site",
+    "evidence": "User manual inspection on 2026-11-15: this EDDY parcel should be excluded as part of an associated site despite no association wording in its property name. The assessor shows $0 improvements and Apartment(Mixed Use); no target PIN was provided."
+  },
+  {
+    "pin": "9528101785",
+    "reason": "reviewed_associated_site",
+    "evidence": "User manual inspection on 2026-11-15: this EDDY parcel should be excluded as part of an associated site despite no association wording in its property name. The assessor shows $0 improvements and Apartment(Mixed Use); no target PIN was provided."
+  },
+  {
+    "pin": "9528101810",
+    "reason": "reviewed_associated_site",
+    "evidence": "User manual inspection on 2026-11-15: this EDDY parcel should be excluded as part of an associated site despite no association wording in its property name. The assessor shows $0 improvements and Apartment(Mixed Use); no target PIN was provided."
+  },
+  {
+    "pin": "2434900030",
+    "reason": "reviewed_not_empty",
+    "evidence": "User review on 2026-11-15: incorrectly labeled as empty and must be excluded. The source names it NORTHGATE PLAZA and records a completed 122,250-square-foot office building; the selected certified improvement value of $900 for tax year 2026 does not prove vacancy."
+  },
+  {
+    "pin": "2024049014",
+    "reason": "reviewed_terminal_site",
+    "evidence": "User review on 2026-11-15: this parcel must be excluded. The assessor names it Fed Ex Terminal, while the selected improvement value is $0. Preserve this explicit reviewed exclusion rather than inferring vacancy from the value."
+  },
+  {
+    "pin": "3448001625",
+    "reason": "reviewed_auto_dealership_site",
+    "evidence": "User review on 2026-11-15: this is an auto-related parcel and must be excluded despite its Vacant(Commercial) classification. The assessor names it BILL PIERRE USED TRUCKS AND CARS and shows $0 improvements. Preserve the source classification and apply the reviewed correction; neighbor exceptions cannot override it."
+  }
+]

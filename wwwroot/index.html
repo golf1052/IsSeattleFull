@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Is Seattle empty?</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+    <link rel="stylesheet" href="/aerial.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
+    <script src="/aerial.js" defer></script>
+</head>
+<body>
+<main>
+    <header>
+        <h1>Is Seattle empty?</h1>
+        <a href="/map/">Map view</a>
+    </header>
+    <article class="card">
+        <div class="photo">
+            <div id="aerial" aria-label="Aerial view of the selected place"></div>
+            <span class="year">2025 aerial imagery</span>
+            <div id="imageMessage" class="image-message" role="status">
+                <span id="imageStatus">Loading places...</span>
+                <button id="retry" type="button" hidden>Retry</button>
+            </div>
+        </div>
+        <fieldset id="controls" class="controls" disabled>
+            <legend class="sr-only">Choose a place</legend>
+            <div class="range-label">
+                <label for="place">Explore places</label>
+                <output id="position" for="place">--</output>
+            </div>
+            <input id="place" type="range" min="0" max="0" step="1" value="0" aria-label="Aerial view">
+            <label class="check"><input id="showParcels" type="checkbox" checked>Show Parcels</label>
+        </fieldset>
+        <section class="address" aria-live="polite">
+            <h2 id="address">Loading address...</h2>
+            <p id="lotArea" class="lot-area"></p>
+            <details id="otherAddresses" hidden>
+                <summary>Other addresses</summary>
+                <ul id="addressList"></ul>
+            </details>
+        </section>
+    </article>
+    <footer>Candidate land, not verified vacancy. Imagery is from 2025 and may predate site changes.</footer>
+    <noscript><p class="error">Enable JavaScript to browse aerial views. <a href="/map/">Map view</a> remains available.</p></noscript>
+</main>
+</body>
+</html>

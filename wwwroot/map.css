@@ -1,0 +1,92 @@
+:root {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: #192b35;
+    background: #edf1f1;
+    font-synthesis: none;
+    accent-color: #007f8b;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; display: flex; height: 100dvh; }
+.sidebar {
+    width: 360px;
+    flex-shrink: 0;
+    overflow-y: auto;
+    background: #fff;
+    padding: 28px 24px;
+    border-right: 1px solid #d7e1e3;
+    z-index: 1000;
+}
+header { margin-bottom: 24px; }
+.eyebrow {
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    font-size: .7rem;
+    font-weight: 700;
+    color: #597078;
+    margin: 0 0 8px;
+}
+h1 { font-size: 1.75rem; letter-spacing: -.04em; margin: 0 0 12px; }
+h2 { font-size: 1.1rem; margin: 0 0 12px; overflow-wrap: anywhere; }
+p { line-height: 1.55; }
+.intro, .muted { color: #596d77; font-size: .9rem; }
+.intro { margin: 0; }
+.stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.stats > div { background: #f1f6f6; padding: 14px; border-radius: 8px; }
+.stats strong { display: block; font-size: 1.55rem; font-variant-numeric: tabular-nums; }
+.stats span { display: block; color: #596d77; font-size: .75rem; margin-top: 3px; }
+.status { color: #596d77; font-size: .78rem; min-height: 1.2em; }
+.error { padding: 12px; background: #fff0ed; color: #9c3026; border-radius: 6px; font-size: .85rem; }
+[hidden] { display: none !important; }
+fieldset { border: 0; padding: 0; margin: 24px 0; min-width: 0; }
+legend { font-size: 1rem; font-weight: 650; padding: 0; margin-bottom: 16px; }
+.select-label, .control-label { display: block; font-size: .78rem; font-weight: 650; margin: 12px 0 7px; }
+select, input[type="search"], button {
+    font: inherit;
+    font-size: .82rem;
+    border: 1px solid #c8d5d9;
+    border-radius: 6px;
+    padding: 9px 10px;
+    background: #fff;
+    color: inherit;
+}
+select { width: 100%; }
+button { cursor: pointer; background: #f4f8f8; font-weight: 600; }
+button:hover { background: #e4efef; }
+button:disabled { cursor: default; opacity: .5; }
+input:focus-visible, select:focus-visible, button:focus-visible {
+    outline: 3px solid #007f8b;
+    outline-offset: 2px;
+}
+.color-legend { display: grid; gap: 6px; margin: 12px 0 18px; font-size: .76rem; }
+.legend-item { display: flex; align-items: center; gap: 8px; }
+.swatch { width: 12px; height: 12px; border: 2px solid; border-radius: 3px; flex-shrink: 0; }
+.check-row { display: flex; align-items: center; gap: 8px; min-height: 36px; font-size: .81rem; cursor: pointer; }
+.check-row input { width: 16px; height: 16px; margin: 0; flex-shrink: 0; }
+.category-count { margin-left: auto; color: #6a7c83; font-size: .73rem; font-variant-numeric: tabular-nums; }
+.review-filter { border-top: 1px solid #e2e9eb; margin-top: 8px; padding-top: 10px; }
+.map-actions { display: grid; gap: 8px; margin: 14px 0 18px; }
+.map-actions button { width: 100%; }
+.search-row { display: flex; gap: 6px; }
+.search-row input { width: 100%; min-width: 0; }
+.details { border-top: 1px solid #e2e9eb; padding-top: 20px; margin-top: 12px; }
+.badge { display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: .75rem; font-weight: 650; margin-bottom: 8px; background: #eaf4ee; color: #166f49; }
+.badge.review { background: #fff0ed; color: #a43d28; }
+dl { margin: 12px 0; font-size: .82rem; }
+dt { font-size: .73rem; color: #61747d; margin-top: 12px; }
+dd { margin: 3px 0 0; overflow-wrap: anywhere; }
+.detail-label { font-weight: 650; font-size: .8rem; margin: 18px 0 6px; }
+.detail-list { padding-left: 18px; margin: 0; font-size: .78rem; color: #465d68; line-height: 1.65; }
+.warning-list { color: #a43d28; }
+footer { border-top: 1px solid #e2e9eb; margin-top: 24px; padding-top: 12px; color: #6a7c83; font-size: .71rem; }
+#map { flex: 1; min-width: 0; background: #e6edef; }
+.leaflet-container { font-family: inherit; }
+.leaflet-control-attribution { font-size: 10px; }
+
+@media (max-width: 700px) {
+    body { flex-direction: column-reverse; }
+    #map { flex: none; height: 55dvh; width: 100%; }
+    .sidebar { width: 100%; height: 45dvh; padding: 20px; border-right: 0; border-top: 1px solid #d7e1e3; }
+    header { margin-bottom: 16px; }
+    h1 { font-size: 1.4rem; }
+}

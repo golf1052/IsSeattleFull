@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Is Seattle Empty? | Parcel map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+    <link rel="stylesheet" href="/map.css?v=2">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
+    <script src="/map.js?v=10" defer></script>
+</head>
+<body>
+    <aside class="sidebar" aria-label="Parcel map controls and details">
+        <header>
+            <p class="eyebrow">A Seattle land inventory</p>
+            <h1>Is Seattle empty?</h1>
+            <a href="/">Aerial view</a>
+            <p class="intro">Explore apparently vacant, paved-only, and minimally improved parcels.</p>
+        </header>
+
+        <div class="stats" aria-label="Inventory counts">
+            <div><strong id="visibleCount">--</strong><span>on the map</span></div>
+            <div><strong id="reviewCount">--</strong><span>need review</span></div>
+        </div>
+        <p id="loadStatus" class="status" role="status" aria-live="polite">Loading the local parcel export...</p>
+        <p id="errorMessage" class="error" role="alert" hidden></p>
+        <noscript><p class="error">Enable JavaScript to display the map.</p></noscript>
+
+        <fieldset id="filters" disabled>
+            <legend>Explore the inventory</legend>
+            <label class="select-label" for="colorBy">Color polygons by</label>
+            <select id="colorBy">
+                <option value="category">Parcel category</option>
+                <option value="status">Review status</option>
+            </select>
+            <div id="colorLegend" class="color-legend" aria-label="Polygon color key"></div>
+
+            <p class="control-label">Include categories</p>
+            <label class="check-row"><input type="checkbox" name="category" value="vacant_or_cleared" checked>
+                <span>Vacant / cleared</span><span class="category-count" data-count="vacant_or_cleared"></span></label>
+            <label class="check-row"><input type="checkbox" name="category" value="surface_parking" checked>
+                <span>Surface parking</span><span class="category-count" data-count="surface_parking"></span></label>
+            <label class="check-row"><input type="checkbox" name="category" value="low_value_improvements" checked>
+                <span>Low-value improvements</span><span class="category-count" data-count="low_value_improvements"></span></label>
+            <label class="check-row"><input type="checkbox" name="category" value="needs_review" checked>
+                <span>Unresolved assessment</span><span class="category-count" data-count="needs_review"></span></label>
+            <label class="check-row review-filter"><input type="checkbox" id="reviewOnly">
+                <span>Only parcels needing review</span></label>
+
+            <div class="map-actions">
+                <button id="fitParcels" type="button">Fit visible parcels</button>
+                <button id="hideAerial" type="button" hidden>Return to street view</button>
+            </div>
+            <p id="aerialStatus" class="status" role="status" aria-live="polite">Select a parcel to preview aerial imagery for its group.</p>
+            <form id="parcelSearch">
+                <label class="select-label" for="pinSearch">Find a parcel by PIN</label>
+                <div class="search-row">
+                    <input id="pinSearch" type="search" placeholder="Parcel identifier" autocomplete="off">
+                    <button type="submit">Find</button>
+                </div>
+            </form>
+            <p id="searchStatus" class="status" role="status" aria-live="polite"></p>
+        </fieldset>
+
+        <section class="details" aria-labelledby="detailsHeading">
+            <p class="eyebrow">Parcel details</p>
+            <h2 id="detailsHeading">Select a boundary</h2>
+            <div id="parcelDetails"><p class="muted">Click an outlined parcel or search by PIN to see its values, inclusion reasons, and warnings.</p></div>
+        </section>
+
+        <footer>
+            <p><strong>Candidates, not confirmed vacancy.</strong> Assessor classifications can lag construction and demolition. Low value does not mean unoccupied or buildable.</p>
+            <p>Nominal $1,000 valuations are normally excluded; the approved showroom-neighbor exception can override this. Cross-parcel improvement references remain excluded until independently verified.</p>
+            <p>Topography YES, Water Problems YES, and Restrictive Size Shape YES parcels are excluded by policy. These constraint flags do not prove occupancy or submersion.</p>
+            <p>Neighbor-based exceptions for size/shape and showroom classifications are marked for review; original attributes and accepted neighboring PINs remain visible.</p>
+            <p>Townhouse plats and construction-marked property names are excluded. These records are not a real-time construction status.</p>
+            <p>Bulk data is cross-checked against GIS: positive appraisals override zero/missing values, and GIS fills null attributes. Source tax years are shown separately from the comparison year; snapshots are cached.</p>
+            <p id="sourceDate">Source: King County parcels and Seattle Parks.</p>
+            <p>Street basemap: OpenStreetMap. On-demand aerial preview: 2025 imagery from EagleView Technologies, Inc. / King County's public cached map service. Imagery is not live and may predate site changes.</p>
+        </footer>
+    </aside>
+    <main id="map" aria-label="Interactive Seattle parcel boundary map"></main>
+</body>
+</html>
