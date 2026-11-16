@@ -1833,5 +1833,80 @@
     "pin": "9269200090",
     "reason": "reviewed_map_exclusion",
     "evidence": "House"
+  },
+  {
+    "pin": "7228500571",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Exclude another apartment building"
+  },
+  {
+    "pin": "7228500585",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Exclude another apartment building"
+  },
+  {
+    "pin": "1972204645",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Seattle Pacific University"
+  },
+  {
+    "pin": "1231000805",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Part of a house"
+  },
+  {
+    "pin": "9497700105",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "New building"
+  },
+  {
+    "pin": "0510001291",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Triplex"
+  },
+  {
+    "pin": "0510001292",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Triplex"
+  },
+  {
+    "pin": "0510001293",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Triplex"
+  },
+  {
+    "pin": "0510001294",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Triplex"
+  },
+  {
+    "pin": "0809000500",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Front yard"
+  },
+  {
+    "pin": "7443000275",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Seattle Pacific University"
+  },
+  {
+    "pin": "7243500060",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Backyard"
+  },
+  {
+    "pin": "7549801520",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Church"
+  },
+  {
+    "pin": "1854700105",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Yard"
+  },
+  {
+    "pin": "9256900035",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Not vacant"
   }
 ]
