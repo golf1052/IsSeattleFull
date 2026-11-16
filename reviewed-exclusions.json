@@ -1808,5 +1808,10 @@
     "pin": "3491300065",
     "reason": "reviewed_map_exclusion",
     "evidence": "House"
+  },
+  {
+    "pin": "0452000720",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "House"
   }
 ]
