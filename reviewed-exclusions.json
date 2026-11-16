@@ -1703,5 +1703,110 @@
     "pin": "7666202665",
     "reason": "reviewed_map_exclusion",
     "evidence": "Uwajimaya parking"
+  },
+  {
+    "pin": "1972203495",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Building"
+  },
+  {
+    "pin": "1959702174",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "House"
+  },
+  {
+    "pin": "1957200035",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Big house"
+  },
+  {
+    "pin": "3016300075",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Springline Apartment"
+  },
+  {
+    "pin": "3016300085",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Springline Apartment"
+  },
+  {
+    "pin": "1907100026",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Nub, part of other property"
+  },
+  {
+    "pin": "0125039052",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "House"
+  },
+  {
+    "pin": "5273200026",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Church"
+  },
+  {
+    "pin": "4365200985",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Westwood apartments"
+  },
+  {
+    "pin": "6003001220",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Church parking"
+  },
+  {
+    "pin": "1624049296",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Part of house"
+  },
+  {
+    "pin": "3298700471",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Salvation Army"
+  },
+  {
+    "pin": "2922702841",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "New house"
+  },
+  {
+    "pin": "5141000310",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Church"
+  },
+  {
+    "pin": "0660000945",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Seattle Theater Group parking garage"
+  },
+  {
+    "pin": "9184700260",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Church playground"
+  },
+  {
+    "pin": "3395041060",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "7519000355",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "New building"
+  },
+  {
+    "pin": "9106000380",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Backyards"
+  },
+  {
+    "pin": "9106000388",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Backyards"
+  },
+  {
+    "pin": "3491300065",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "House"
   }
 ]
