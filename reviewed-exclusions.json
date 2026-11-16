@@ -1908,5 +1908,145 @@
     "pin": "9256900035",
     "reason": "reviewed_map_exclusion",
     "evidence": "Not vacant"
+  },
+  {
+    "pin": "8812400300",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Apartment add"
+  },
+  {
+    "pin": "8924100056",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "House"
+  },
+  {
+    "pin": "9126100222",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "House"
+  },
+  {
+    "pin": "1976200170",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Pike Place"
+  },
+  {
+    "pin": "1976200185",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Pike Place"
+  },
+  {
+    "pin": "7547300530",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "House"
+  },
+  {
+    "pin": "9528104720",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "The Hearthstone Apartments"
+  },
+  {
+    "pin": "2624049022",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Building"
+  },
+  {
+    "pin": "2926049644",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Backyard"
+  },
+  {
+    "pin": "5101408749",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "House"
+  },
+  {
+    "pin": "5367202380",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Muckleshoot land"
+  },
+  {
+    "pin": "5367202390",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Muckleshoot land"
+  },
+  {
+    "pin": "5367204200",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Muckleshoot land"
+  },
+  {
+    "pin": "5367204160",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Muckleshoot land"
+  },
+  {
+    "pin": "3034200162",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Buildings"
+  },
+  {
+    "pin": "3034200167",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Buildings"
+  },
+  {
+    "pin": "3034200168",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Buildings"
+  },
+  {
+    "pin": "3034200169",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Buildings"
+  },
+  {
+    "pin": "8901001011",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Backyard"
+  },
+  {
+    "pin": "6003001297",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Improvements on other parcels"
+  },
+  {
+    "pin": "6003001298",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Improvements on other parcels"
+  },
+  {
+    "pin": "6003001299",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Improvements on other parcels"
+  },
+  {
+    "pin": "5700003715",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Yard"
+  },
+  {
+    "pin": "1005000240",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "New building"
+  },
+  {
+    "pin": "1005000247",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "New building"
+  },
+  {
+    "pin": "6169900946",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Garage"
+  },
+  {
+    "pin": "1133000257",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Backyard"
+  },
+  {
+    "pin": "1370802640",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "House"
   }
 ]
