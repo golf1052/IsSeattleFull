@@ -6,9 +6,12 @@
 # dotenv files
 .env
 
-# Downloaded GIS snapshots and generated parcel inventories
+# Downloaded source data and generated diagnostics
 /data/
-/exports/
+/exports/*
+!/exports/empty-parcels.geojson
+!/exports/aerial-catalog.json
+!/exports/aerial-boundaries.json
 
 # User-specific files
 *.rsuser

@@ -48,7 +48,8 @@ reuse them without contacting their APIs. Exporter `--refresh` replaces the GIS
 snapshots, not the bulk archives; use the download helper for a new bulk snapshot.
 there is no automatic expiration. Interrupted or failed downloads never replace
 completed files. Corrupt/incompatible cached files produce an error rather than
-silently being redownloaded. Cached data and exports are ignored by Git.
+silently being redownloaded. Cached source data and diagnostic exports are ignored
+by Git; the three runtime exports below are included in version control.
 
 Normal `export` CLI runs also prepare the aerial landing catalog. To prepare or
 refresh that catalog from an existing parcel export without rerunning filters:
@@ -440,6 +441,26 @@ silently substituting zero or inventing an assessment value. Bulk parcel history
 can supply a known value even when there is no account link in the certified file.
 Consult [King County's data terms](https://kingcounty.gov/en/dept/kcit/data-information-services/gis-center/about/terms-conditions-copyrights)
 before redistributing or selling derived data.
+
+## Deploy runtime data
+
+Commit these generated files with the application:
+
+- `exports\empty-parcels.geojson`: map polygons, classifications and parcel details.
+- `exports\aerial-catalog.json`: aerial groups, addresses, lot areas and crop bounds.
+- `exports\aerial-boundaries.json`: individual parcel outlines for each aerial group.
+
+After a successful `dotnet run -- export`, commit all three together. The aerial
+catalog and boundaries must have matching revisions. All other files under
+`exports` and the entire `data` directory remain ignored; they are not needed
+to serve the website.
+
+Repository-based deployments obtain these files with `git pull`, so no separate
+data upload or server-side export is needed. Run the published application with
+the repository root as its content root, or set `ParcelMap__ExportDirectory` to
+the repository's `exports` directory. Exports are excluded from `dotnet publish`
+output, so a deployment containing only published files must supply these three
+files separately. Browsers load map libraries and imagery from external services.
 
 ## Browse aerial views
 
