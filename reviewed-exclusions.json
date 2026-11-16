@@ -1813,5 +1813,25 @@
     "pin": "0452000720",
     "reason": "reviewed_map_exclusion",
     "evidence": "House"
+  },
+  {
+    "pin": "9412400166",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Private front yard"
+  },
+  {
+    "pin": "2734101000",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Back yard"
+  },
+  {
+    "pin": "0917000235",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Church parking"
+  },
+  {
+    "pin": "9269200090",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "House"
   }
 ]
