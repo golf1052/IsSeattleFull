@@ -2123,5 +2123,10 @@
     "pin": "5016001875",
     "reason": "reviewed_map_exclusion",
     "evidence": "House"
+  },
+  {
+    "pin": "0007600053",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Church parking"
   }
 ]
