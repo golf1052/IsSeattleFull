@@ -1,6 +1,6 @@
 using System.Text.Json;
 
-namespace IsSeattleEmpty.Parcels;
+namespace IsSeattleFull.Parcels;
 
 public sealed record DatasetDefinition(
     string FileName, string Url, string Where, string Fields, bool HasGeometry = true);

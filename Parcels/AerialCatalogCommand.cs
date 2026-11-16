@@ -1,4 +1,4 @@
-namespace IsSeattleEmpty.Parcels;
+namespace IsSeattleFull.Parcels;
 
 public static class AerialCatalogCommand
 {

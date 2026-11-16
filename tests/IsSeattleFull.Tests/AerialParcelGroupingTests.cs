@@ -1,8 +1,8 @@
-using IsSeattleEmpty.Parcels;
+using IsSeattleFull.Parcels;
 using NetTopologySuite.Geometries;
 using Xunit;
 
-namespace IsSeattleEmpty.Tests;
+namespace IsSeattleFull.Tests;
 
 public sealed class AerialParcelGroupingTests
 {

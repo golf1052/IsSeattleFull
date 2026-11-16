@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 using NetTopologySuite.Geometries;
 using NetTopologySuite.Index.Strtree;
 
-namespace IsSeattleEmpty.Parcels;
+namespace IsSeattleFull.Parcels;
 
 public sealed record AerialAddress(string? Street, string Source, string[] SourcePins,
     double[]? LookupPoint = null, double[]? MatchedPoint = null, double? DistanceMetres = null,

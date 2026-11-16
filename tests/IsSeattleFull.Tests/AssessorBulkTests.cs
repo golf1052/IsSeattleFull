@@ -4,10 +4,10 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using CsvHelper;
-using IsSeattleEmpty.Parcels;
+using IsSeattleFull.Parcels;
 using Xunit;
 
-namespace IsSeattleEmpty.Tests;
+namespace IsSeattleFull.Tests;
 
 public sealed class AssessorBulkTests
 {
@@ -590,7 +590,7 @@ internal sealed class BulkFixture : IDisposable
         ["EXTR_PermitHistory_V.csv"] = ("Permit", "Major,Minor,PermitNbr,PermitType,PermitStatus,IssueDate,UpdateDate,PcntComplete"),
         ["EXTR_PermitDetailHistory_V.csv"] = ("Permit", "PermitNbr,PermitItem,ItemValue")
     };
-    public string Directory { get; } = Path.Combine(Path.GetTempPath(), "IsSeattleEmpty-bulk-" + Guid.NewGuid().ToString("N"));
+    public string Directory { get; } = Path.Combine(Path.GetTempPath(), "IsSeattleFull-bulk-" + Guid.NewGuid().ToString("N"));
     private readonly Dictionary<string, List<Dictionary<string, string>>> rows = new();
 
     public BulkFixture() => System.IO.Directory.CreateDirectory(Directory);

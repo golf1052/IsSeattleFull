@@ -1,7 +1,7 @@
 using System.Text.Json;
 using NetTopologySuite.Geometries;
 
-namespace IsSeattleEmpty.Parcels;
+namespace IsSeattleFull.Parcels;
 
 public static class ParcelExportCommand
 {

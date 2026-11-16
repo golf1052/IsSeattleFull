@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
 
-namespace IsSeattleEmpty.Parcels;
+namespace IsSeattleFull.Parcels;
 
 public sealed record ImprovementReference(
     string PropertyName, string[] ParcelPins, bool Unparsed, string Method = "explicit_wording");

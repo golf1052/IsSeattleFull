@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace IsSeattleEmpty.Parcels;
+namespace IsSeattleFull.Parcels;
 
 public sealed record BulkSource(string File, string Url, string Sha256, long Bytes);
 

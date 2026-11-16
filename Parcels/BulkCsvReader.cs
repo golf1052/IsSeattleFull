@@ -4,7 +4,7 @@ using System.Text;
 using CsvHelper;
 using CsvHelper.Configuration;
 
-namespace IsSeattleEmpty.Parcels;
+namespace IsSeattleFull.Parcels;
 
 internal sealed class BulkCsvRow(CsvReader reader, Dictionary<string, int> indexes, string member)
 {

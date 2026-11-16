@@ -1,9 +1,9 @@
 using System.Text.Json;
-using IsSeattleEmpty.Parcels;
+using IsSeattleFull.Parcels;
 using NetTopologySuite.Geometries;
 using Xunit;
 
-namespace IsSeattleEmpty.Tests;
+namespace IsSeattleFull.Tests;
 
 public sealed class AerialCatalogTests
 {
@@ -119,7 +119,7 @@ public sealed class AerialCatalogTests
     [Fact]
     public async Task PersistsEnrichmentAndReusesItWithoutNetworkCalls()
     {
-        var root = Path.Combine(Path.GetTempPath(), "IsSeattleEmpty-aerial-" + Guid.NewGuid().ToString("N"));
+        var root = Path.Combine(Path.GetTempPath(), "IsSeattleFull-aerial-" + Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(root);
         var data = Path.Combine(root, "data");
         var output = Path.Combine(root, "exports");

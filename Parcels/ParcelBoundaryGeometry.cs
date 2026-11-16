@@ -1,6 +1,6 @@
 using NetTopologySuite.Geometries;
 
-namespace IsSeattleEmpty.Parcels;
+namespace IsSeattleFull.Parcels;
 
 internal static class ParcelBoundaryGeometry
 {

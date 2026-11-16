@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
 
-namespace IsSeattleEmpty.Parcels;
+namespace IsSeattleFull.Parcels;
 
 public sealed record DealershipParkingMatch(string PropertyName, string DealershipName, string DealershipPin);
 

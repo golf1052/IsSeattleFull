@@ -1,14 +1,14 @@
 using System.Net;
 using System.Text;
 using System.Text.Json;
-using IsSeattleEmpty.Parcels;
+using IsSeattleFull.Parcels;
 using Xunit;
 
-namespace IsSeattleEmpty.Tests;
+namespace IsSeattleFull.Tests;
 
 public sealed class ParcelTests : IDisposable
 {
-    private readonly string directory = Path.Combine(Path.GetTempPath(), "IsSeattleEmpty-tests-" + Guid.NewGuid().ToString("N"));
+    private readonly string directory = Path.Combine(Path.GetTempPath(), "IsSeattleFull-tests-" + Guid.NewGuid().ToString("N"));
 
     public ParcelTests() => Directory.CreateDirectory(directory);
 

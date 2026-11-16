@@ -1,4 +1,4 @@
-# IsSeattleEmpty
+# IsSeattleFull
 
 Build an explainable inventory of Seattle parcels that may be colloquially
 "empty": vacant/cleared lots, surface parking, and parcels with at most $1,000

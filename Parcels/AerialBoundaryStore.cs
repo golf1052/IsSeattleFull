@@ -1,6 +1,6 @@
 using System.Text.Json;
 
-namespace IsSeattleEmpty.Parcels;
+namespace IsSeattleFull.Parcels;
 
 public sealed class AerialBoundaryStore(string path)
 {

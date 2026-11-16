@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 using NetTopologySuite.Geometries;
 using NetTopologySuite.Index.Strtree;
 
-namespace IsSeattleEmpty.Parcels;
+namespace IsSeattleFull.Parcels;
 
 public sealed record AerialParcelMember(string Pin, Geometry? Geometry, string Category, bool NeedsReview);
 

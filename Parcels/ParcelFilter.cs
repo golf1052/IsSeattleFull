@@ -7,7 +7,7 @@ using NetTopologySuite.Operation.Union;
 using NetTopologySuite.Index.Strtree;
 using NetTopologySuite.Operation.Valid;
 
-namespace IsSeattleEmpty.Parcels;
+namespace IsSeattleFull.Parcels;
 
 public sealed record ParcelRecord(
     string Pin, string? City, string? Account, decimal? ImprovementValue, int? TaxYear,

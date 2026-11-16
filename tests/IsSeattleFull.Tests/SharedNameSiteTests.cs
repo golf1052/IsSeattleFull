@@ -1,8 +1,8 @@
 using System.Text.Json;
-using IsSeattleEmpty.Parcels;
+using IsSeattleFull.Parcels;
 using Xunit;
 
-namespace IsSeattleEmpty.Tests;
+namespace IsSeattleFull.Tests;
 
 public sealed class SharedNameSiteTests
 {

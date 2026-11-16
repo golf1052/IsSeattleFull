@@ -1,0 +1,11 @@
+@IsSeattleFull_HostAddress = http://localhost:5262
+
+GET {{IsSeattleFull_HostAddress}}/openapi/v1.json
+Accept: application/json
+
+###
+
+GET {{IsSeattleFull_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

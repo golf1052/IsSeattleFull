@@ -1,7 +1,7 @@
 using NetTopologySuite.Geometries;
 using NetTopologySuite.Index.Strtree;
 
-namespace IsSeattleEmpty.Parcels;
+namespace IsSeattleFull.Parcels;
 
 public sealed record SharedNameAssociation(
     string NormalizedName, int TaxRollYear, string[] ImprovementBearingPins, string[] ConnectedParcelPins);
