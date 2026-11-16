@@ -2048,5 +2048,80 @@
     "pin": "1370802640",
     "reason": "reviewed_map_exclusion",
     "evidence": "House"
+  },
+  {
+    "pin": "1336300390",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Duplex"
+  },
+  {
+    "pin": "3468800477",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Business parking"
+  },
+  {
+    "pin": "1773100220",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Building"
+  },
+  {
+    "pin": "3013301115",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Building"
+  },
+  {
+    "pin": "2197600195",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "New building"
+  },
+  {
+    "pin": "2734100170",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "House"
+  },
+  {
+    "pin": "2249000430",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Church parking"
+  },
+  {
+    "pin": "2249000440",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Church parking"
+  },
+  {
+    "pin": "2249000455",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Church parking"
+  },
+  {
+    "pin": "0952004340",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Industrial extension"
+  },
+  {
+    "pin": "2741100670",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Houses"
+  },
+  {
+    "pin": "2741100675",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Houses"
+  },
+  {
+    "pin": "8590400796",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "German Heritage Society"
+  },
+  {
+    "pin": "0952002370",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Building"
+  },
+  {
+    "pin": "5016001875",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "House"
   }
 ]
