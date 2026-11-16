@@ -135,7 +135,8 @@ public static class ParcelFilter
         bool restrictiveSizeShapeFlagged = false, bool constructionMarked = false,
         bool tidelandShorelandOnly = false, bool tidelandNamed = false, bool bnsfNamed = false,
         bool schoolOwned = false, bool publicOwned = false, BulkAssessment? valuation = null,
-        bool allowAutoShowroomNeighborException = false)
+        bool allowAutoShowroomNeighborException = false, bool parkHighestBestUse = false,
+        bool seattleHousingAuthorityNamed = false)
     {
         if (rows.Count == 0 || rows.Select(row => row.Pin).Distinct().Count() != 1)
         {
@@ -171,6 +172,10 @@ public static class ParcelFilter
         if (rows.Any(row => row.UseCode is int use && ParkUses.Contains(use)))
         {
             return new("excluded", null, null, ["park_or_greenbelt_use"], []);
+        }
+        if (parkHighestBestUse)
+        {
+            return new("excluded", null, null, ["park_recreation_highest_best_use"], []);
         }
         if (rows.Any(row => row.PropertyType is "M" or "N"))
         {
@@ -215,6 +220,10 @@ public static class ParcelFilter
         if (bnsfNamed)
         {
             return new("excluded", null, null, ["bnsf_property_name"], []);
+        }
+        if (seattleHousingAuthorityNamed)
+        {
+            return new("excluded", null, null, ["seattle_housing_authority_property_name"], []);
         }
         if (schoolOwned)
         {

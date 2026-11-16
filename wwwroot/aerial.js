@@ -63,6 +63,11 @@
     function fit(group) {
         const [west, south, east, north] = group.bounds;
         map.fitBounds(L.latLngBounds([[south, west], [north, east]]).pad(0.2), { animate: false, maxZoom: 20 });
+        const query = new URLSearchParams({
+            api: "1", map_action: "map", center: `${(south + north) / 2},${(west + east) / 2}`,
+            zoom: String(Math.min(21, Math.max(0, Math.floor(map.getZoom())))), basemap: "satellite"
+        });
+        element("googleMaps").href = `https://www.google.com/maps/@?${query}`;
     }
 
     function selectGroup(index) {
@@ -84,17 +89,28 @@
         element("address").textContent = group.displayAddress ?? "Address unavailable";
         element("lotArea").textContent = group.lotAreaSquareFeet === null ? "Lot area unavailable"
             : `${group.lotAreaIsApproximate ? "Approx. " : ""}${number.format(group.lotAreaSquareFeet)} sq ft`;
-        element("otherAddresses").hidden = group.additionalAddresses.length === 0;
-        element("otherAddresses").open = false;
-        element("addressList").replaceChildren();
-        for (const address of group.additionalAddresses) {
+        element("parcelIds").hidden = false;
+        element("parcelIds").open = false;
+        element("parcelIdList").replaceChildren();
+        for (const pin of group.parcelPins) {
             const item = document.createElement("li");
-            item.textContent = address;
-            element("addressList").append(item);
+            const label = document.createElement("span");
+            label.className = "parcel-pin";
+            label.textContent = pin;
+            const link = document.createElement("a");
+            link.href = `https://blue.kingcounty.com/Assessor/eRealProperty/Dashboard.aspx?ParcelNbr=${encodeURIComponent(pin)}`;
+            link.textContent = "View on Assessor";
+            link.className = "assessor-link";
+            link.target = "_blank";
+            link.rel = "noopener noreferrer";
+            link.setAttribute("aria-label", `View parcel ${pin} on King County Assessor`);
+            item.append(label, ". ", link);
+            element("parcelIdList").append(item);
         }
         element("aerial").setAttribute("aria-label", `2025 aerial view: ${group.displayAddress ?? "Address unavailable"}`);
         message("Loading 2025 imagery...");
         fit(group);
+        element("googleMaps").hidden = false;
         const layer = L.tileLayer(
             "https://gismaps.kingcounty.gov/arcgis/rest/services/BaseMaps/KingCo_Aerial_2025/MapServer/tile/{z}/{y}/{x}",
             {
@@ -132,7 +148,7 @@
                 throw new Error(problem.detail || `Aerial catalog request failed (HTTP ${response.status}).`);
             }
             const data = await response.json();
-            if (data.version !== 1 || typeof data.revision !== "string" || !Array.isArray(data.groups))
+            if (data.version !== 2 || typeof data.revision !== "string" || !Array.isArray(data.groups))
                 throw new Error("Aerial catalog is invalid. Run 'dotnet run -- catalog' to regenerate it.");
             if (data.groups.length === 0) throw new Error("No aerial places are available. Export parcels and prepare the catalog first.");
             const ids = new Set();
@@ -141,7 +157,9 @@
                     !Array.isArray(group.bounds) || group.bounds.length !== 4 || !group.bounds.every(Number.isFinite) ||
                     group.bounds[0] >= group.bounds[2] || group.bounds[1] >= group.bounds[3] ||
                     group.displayAddress !== null && typeof group.displayAddress !== "string" ||
-                    !Array.isArray(group.additionalAddresses) || !group.additionalAddresses.every(address => typeof address === "string") ||
+                    !Array.isArray(group.parcelPins) || group.parcelPins.length === 0 ||
+                    !group.parcelPins.every(pin => typeof pin === "string" && pin.trim().length > 0) ||
+                    new Set(group.parcelPins).size !== group.parcelPins.length ||
                     group.lotAreaSquareFeet !== null && (typeof group.lotAreaSquareFeet !== "number" || !Number.isFinite(group.lotAreaSquareFeet) || group.lotAreaSquareFeet <= 0) ||
                     typeof group.lotAreaIsApproximate !== "boolean") {
                     throw new Error("An aerial place has invalid attributes. Regenerate the catalog.");
@@ -155,6 +173,7 @@
                     zoomControl: false, dragging: false, scrollWheelZoom: false, doubleClickZoom: false,
                     touchZoom: false, boxZoom: false, keyboard: false, zoomSnap: 0
                 });
+                map.on("click", () => element("place").focus({ preventScroll: true }));
                 new ResizeObserver(() => {
                     map.invalidateSize();
                     if (catalog) fit(catalog.groups[selectedIndex]);
@@ -163,11 +182,16 @@
             element("controls").disabled = false;
             element("place").max = String(catalog.groups.length - 1);
             element("place").disabled = catalog.groups.length === 1;
+            element("refresh").disabled = catalog.groups.length === 1;
             selectGroup(Math.floor(Math.random() * catalog.groups.length));
         } catch (error) {
             console.error("Unable to prepare aerial browser:", error);
             element("controls").disabled = true;
             element("address").textContent = "Address unavailable";
+            element("parcelIds").hidden = true;
+            element("parcelIds").open = false;
+            element("parcelIdList").replaceChildren();
+            element("googleMaps").hidden = true;
             message(error.message, true, globalThis.L ? load : () => location.reload());
         }
     }
@@ -177,6 +201,12 @@
     });
     element("showParcels").addEventListener("change", () => {
         if (catalog) boundaries(catalog.groups[selectedIndex], generation);
+    });
+    element("refresh").addEventListener("click", () => {
+        if (!catalog || element("controls").disabled || catalog.groups.length < 2) return;
+        clearTimeout(debounce);
+        const offset = 1 + Math.floor(Math.random() * (catalog.groups.length - 1));
+        selectGroup((selectedIndex + offset) % catalog.groups.length);
     });
     load();
 })();

@@ -10,7 +10,7 @@ namespace IsSeattleFull.Parcels;
 public sealed record AerialAddress(string? Street, string Source, string[] SourcePins,
     double[]? LookupPoint = null, double[]? MatchedPoint = null, double? DistanceMetres = null,
     string? SourceRetrievedAtUtc = null);
-public sealed record AerialCatalogEntry(string Id, double[] Bounds, string? DisplayAddress,
+public sealed record AerialCatalogEntry(string Id, double[] Bounds, string[] ParcelPins, string? DisplayAddress,
     string[] AdditionalAddresses, AerialAddress AddressEvidence, decimal? LotAreaSquareFeet,
     bool LotAreaIsApproximate, string LotAreaBasis);
 public sealed record AerialCatalogDocument(int Version, string Revision, AerialCatalogEntry[] Groups);
@@ -18,7 +18,7 @@ public sealed record AerialBoundaryDocument(string Revision, Dictionary<string, 
 
 public static partial class AerialCatalog
 {
-    private const int Version = 1;
+    private const int Version = 2;
     private const int CacheVersion = 3;
     private static readonly JsonSerializerOptions Json = new(JsonSerializerDefaults.Web);
     public static readonly DatasetDefinition AddressPoints = new(
@@ -210,7 +210,8 @@ public static partial class AerialCatalog
             cancellationToken.ThrowIfCancellationRequested();
             var properties = group.GetProperty("properties");
             var id = properties.GetProperty("Id").GetString()!;
-            var pins = properties.GetProperty("ParcelPins").EnumerateArray().Select(pin => pin.GetString()!).ToArray();
+            var pins = properties.GetProperty("ParcelPins").EnumerateArray().Select(pin => pin.GetString()!)
+                .Order(StringComparer.Ordinal).ToArray();
             boundaries[id] = JsonSerializer.SerializeToElement(new
             {
                 type = "FeatureCollection",
@@ -227,7 +228,7 @@ public static partial class AerialCatalog
             var address = RecordedAddress(pins, parcels, out var additional) ?? ReverseAddress(geometry, index!, retrieved);
             if (address.Street is null) log.WriteLine($"WARNING: No recorded or nearby address found for {id} within {MaximumAddressDistanceMetres} metres.");
             var area = LotArea(pins, parcels, geometry);
-            entries.Add(new(id, properties.GetProperty("Bounds").EnumerateArray().Select(value => value.GetDouble()).ToArray(),
+            entries.Add(new(id, properties.GetProperty("Bounds").EnumerateArray().Select(value => value.GetDouble()).ToArray(), pins,
                 address.Street is null ? null : address.Source == "county_address_point_reverse_geocode" ? "Near " + address.Street : address.Street,
                 additional, address, area.SquareFeet, area.Approximate, area.Basis));
         }

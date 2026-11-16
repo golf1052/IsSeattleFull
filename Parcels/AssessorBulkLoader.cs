@@ -7,7 +7,7 @@ namespace IsSeattleFull.Parcels;
 
 public static class AssessorBulkLoader
 {
-    private const int CacheVersion = 3;
+    private const int CacheVersion = 4;
     private static readonly JsonSerializerOptions Json = new(JsonSerializerDefaults.Web);
     public static readonly string[] ArchiveNames =
     [
@@ -211,12 +211,13 @@ public static class AssessorBulkLoader
                 table[item] = row.Text("LUDescription") ?? "";
             }, filtered: false);
             Read("Parcel", "EXTR_Parcel.csv",
-                "Major,Minor,PropName,PropType,PresentUse,SqFtLot,Topography,RestrictiveSzShape,TidelandShoreland,WaterProblems,Access,PcntUnusable,Unbuildable,Wetland,SteepSlopeHazard",
+                "Major,Minor,PropName,PropType,PresentUse,SqFtLot,Topography,RestrictiveSzShape,TidelandShoreland,WaterProblems,Access,PcntUnusable,Unbuildable,Wetland,SteepSlopeHazard,HBUAsIfVacant,HBUAsImproved",
                 row => Get(row.Pin).Parcel = new(row.Text("PropName"), row.Text("PropType"),
                     row.Integer("PresentUse"), row.Number("SqFtLot"), row.Integer("Topography"),
                     row.Integer("RestrictiveSzShape"), row.Integer("TidelandShoreland"), row.Text("WaterProblems"),
                     row.Integer("Access"), row.Integer("PcntUnusable"), row.Text("Unbuildable"),
-                    row.Text("Wetland"), row.Text("SteepSlopeHazard")));
+                    row.Text("Wetland"), row.Text("SteepSlopeHazard"),
+                    row.Integer("HBUAsIfVacant"), row.Integer("HBUAsImproved")));
             Read("Condo Complex and Units", "EXTR_CondoComplex.csv",
                 "Major,ComplexType,NbrBldgs,NbrUnits,AvgUnitSize,YrBuilt,PcntComplete", row =>
                 Get(row.Major + "0000").Condo = new()

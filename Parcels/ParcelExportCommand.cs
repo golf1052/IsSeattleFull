@@ -261,7 +261,9 @@ public static class ParcelExportCommand
                 schoolOwned: publicOwners.TryGetValue(pin, out var owners) && owners.Any(owner => owner.OwnerType == "SCHOOL"),
                 publicOwned: publicOwners.ContainsKey(pin),
                 valuation: assessmentsByPin?.GetValueOrDefault(pin),
-                allowAutoShowroomNeighborException: neighborOverride == "auto_showroom_and_lot_use");
+                allowAutoShowroomNeighborException: neighborOverride == "auto_showroom_and_lot_use",
+                parkHighestBestUse: bulk?.Parcels.GetValueOrDefault(pin)?.Parcel?.HighestBestUseAsIfVacant == 9,
+                seattleHousingAuthorityNamed: AssessmentReferences.IsSeattleHousingAuthorityNamed(namesByPin[pin]));
         int?[] TaxRollYears(string pin)
         {
             if (bulk is null) return rowsByPin[pin].Select(row => row.TaxYear).Distinct().Order().ToArray();
@@ -444,7 +446,7 @@ public static class ParcelExportCommand
                     if (decision.Status == "excluded")
                     {
                         Increment(excluded, decision.Reasons[0]);
-                        if (references.Length > 0 || decision.Reasons[0] is "cross_parcel_improvements" or "nominal_1000_improvements" or "construction_marked_name" or "tideland_property_name" or "shared_name_site_improvements" or "bnsf_property_name" or "school_owned_land" or "government_owned_land" or "dealership_parking_name_match" or "assessor_incomplete_construction" or "assessor_parking_garage" or "assessor_floating_home_condo" or "known_condo_unit_improvements_above_threshold" or "inactive_assessor_parcel" or "vacant_use_with_valuable_improvements" or "known_exempt_split_improvements_above_threshold")
+                        if (references.Length > 0 || decision.Reasons[0] is "cross_parcel_improvements" or "nominal_1000_improvements" or "construction_marked_name" or "tideland_property_name" or "shared_name_site_improvements" or "bnsf_property_name" or "seattle_housing_authority_property_name" or "school_owned_land" or "government_owned_land" or "dealership_parking_name_match" or "assessor_incomplete_construction" or "assessor_parking_garage" or "assessor_floating_home_condo" or "known_condo_unit_improvements_above_threshold" or "inactive_assessor_parcel" or "vacant_use_with_valuable_improvements" or "known_exempt_split_improvements_above_threshold" or "park_recreation_highest_best_use")
                         {
                             assessmentExclusions.Add(new
                             {
@@ -644,7 +646,9 @@ public static class ParcelExportCommand
                     "Assessor TIDELANDSHORELAND = 3 (tidelands/shorelands only) is excluded even when present use says vacant; mixed upland/tideland records (2) and historical tide-plat names alone are not excluded by this rule.",
                     "An exact TIDELAND or TIDELANDS property name also excludes a parcel; longer historical plat or building names are not treated as tidal solely by containing that word.",
                     "BNSF/Burlington Northern-named parcels are excluded; this is name-based association, not complete ownership matching, because the public parcel sources omit full owner names.",
+                    "Property names containing SEATTLE HOUSING AUTHORITY or the standalone abbreviation SHA are excluded case-insensitively. SHA inside unrelated words is not matched. This is a property-name rule, not an ownership lookup; other abbreviations and differently named housing-authority parcels can be missed.",
                     "All public/government ownership identified in the county's public-ownership layer is excluded, including genuinely vacant public land; ownership data can lag changes.",
+                    "Assessor highest and best use as if vacant PARK/RECREATION (HBUAsIfVacant = 9) is excluded even when present use says vacant. This is a specific park/recreation policy, not proof of current activity; HBUAsImproved = 1 (PRESENT USE) alone does not trigger exclusion.",
                     "Auto-showroom/display lots are excluded except for explicit neighbor-based review exceptions; terminal classes remain excluded. Commercial parking names matching classified dealerships remain excluded using meaningful business-name words, not a brand blacklist.",
                     "Tract/unknown/public placeholders, religious/welfare uses, cemeteries/mortuaries/crematories, hospitals, schools, utilities, golf courses, sport facilities, marinas, houseboats, rail/marine terminals and rights-of-way are excluded.",
                     "All associated/accessory parking (159) is excluded; standalone commercial parking (180) remains eligible subject to other exclusions.",

@@ -39,7 +39,7 @@ The exporter automatically selects the newest dated manifest under
 are an error; GIS cross-checking does not replace the required bulk snapshot.
 
 The first export streams the scoped data from compressed CSVs and writes
-`seattle-enrichment-v3.json` beside the archives. Subsequent exports reuse this
+`seattle-enrichment-v4.json` beside the archives. Subsequent exports reuse this
 processed cache. Archive hashes, lengths/timestamps, the manifest and parcel-ID
 scope guard against stale or changed inputs. The archives are never unpacked.
 
@@ -126,7 +126,8 @@ aerial viewer. Missing/invalid parcel footprints are not given a photo group.
 assessment rules, their property names, parsed references, target values/years,
 and missing/truncated-reference evidence.
 It also includes property names excluded for explicit construction markers or
-exact tidal labels, and BNSF/Burlington Northern name matches.
+exact tidal labels, BNSF/Burlington Northern name matches, and Seattle Housing
+Authority name matches.
 Association references are retained even when another exclusion, such as
 restrictive size/shape, takes precedence.
 `exports\bulk-assessment-audit.json` records the original GIS and bulk values alongside
@@ -247,17 +248,41 @@ and condo coverage, including parcels removed by other/manual exclusions.
 - Short `w/` parcel lists such as `Skyline First Hill w/0825, 0826, ...`
   are resolved using the source Major, or an explicit full PIN's Major.
   They trigger `validated_with_parcel_list` only when a listed parcel is a
-  known improvement-bearing target in the same comparison year. Unit counts,
-  unvalidated numbers, and a single bare minor do not qualify.
+  known improvement-bearing target in the same comparison year. Single
+  references such as `PRECISION SHEET METAL (w/0565)` also resolve when the PIN
+  ends the note or precedes a closing parenthesis, using the same target-value
+  validation; these are recorded as `validated_with_parcel_reference`.
+  An optional `#` prefix is supported in both single references and lists,
+  such as `J Pan Apartments (w/ #0820)` or `w/#0820, #0825`.
+  The slash-free `w #0195` variant is supported under the same validation rules;
+  without a slash, the `#` marker is required.
+  Unit counts, square-footage descriptions, unvalidated numbers, and self-references
+  do not qualify.
+- Explicit `Together w/ #0740 & #0745` or `together with #0740` parcel notes
+  identify a shared site and are recorded as `together_parcel_reference`.
+  Unlike a bare `w/` reference, these exclude the source across all categories
+  even when the referenced parcels have zero or unresolved improvements.
+  The source can be the improvement-bearing parcel mislabeled as parking.
+  Ordinary phrases without numeric parcel references and self-references alone
+  do not trigger this rule.
+- Explicit `SAME OWNERSHIP W/ACCTS #817010-0120 & #817010-0135` notes resolve
+  listed parcels and exclude the source as `same_ownership_parcel_reference`,
+  including when the referenced values are nominal or unknown. `with`, account,
+  parcel and PIN labels are supported. This is a conservative property-name
+  association rule, not a general owner-name lookup or proof of building coverage.
+  Generic same-ownership wording without parcel references and self-references
+  alone do not trigger it. Twelve-digit tax-account IDs are not guessed into PINs.
 - `Econ unit` / `Econ. Unit` / `Economic unit` notes resolve economic-unit
   associations without requiring specific wording such as `to Minor`.
   `includes` lists, `with` references, and `(P)`/`(S)` role markers are supported;
   notes without a resolvable target remain conservatively excluded. These are
   recorded as `economic_unit_reference`. Explicit `- SUBSIDIARY` role suffixes
   resolve any listed parcels, or remain conservatively excluded if no target is
-  named (`subsidiary_parcel_reference`). Ordinary subsidiary-company names do not
-  trigger this rule. These associations remain excluded even when a neighbor
-  could otherwise override size/shape.
+  named (`subsidiary_parcel_reference`). Explicit `SUBSIDIARY W/0145` and
+  `subsidiary with P 0600, 0605` references also resolve targets, without requiring
+  a preceding hyphen; `P` and `(P)` primary-role markers are supported.
+  Ordinary subsidiary-company names do not trigger this rule. These associations
+  remain excluded even when a neighbor could otherwise override size/shape.
 - User-corrected associations and manually inspected associated sites without
   reliable name evidence remain persistent reviewed exclusions. In particular,
   a mistaken self-reference is corrected through reviewed evidence, not by
@@ -297,6 +322,14 @@ and condo coverage, including parcels removed by other/manual exclusions.
   or surface parking. Other ambiguous cases still remain flagged in the export.
 - Parking garages (`182`), park/greenbelt uses (`149`, `150`, `328`, `331`),
   mapped Parks properties, and mineral/mining-rights records are excluded.
+- Assessor highest and best use **as if vacant** `PARK/RECREATION`
+  (`HBUAsIfVacant = 9`, lookup type `103`) also excludes a parcel, even if its
+  present-use code incorrectly says vacant residential land. Both highest-and-best-use
+  codes are retained in `assessor.Parcel`, and exclusions appear as
+  `park_recreation_highest_best_use` in the assessment audit. This is a specific
+  park/recreation policy, not a general claim that highest and best use proves
+  current activity. Highest and best use **as improved** `PRESENT USE`
+  (`HBUAsImproved = 1`, lookup type `104`) does not trigger exclusion on its own.
 - Water polygons with a `HYDR` PIN suffix are excluded before evaluating missing
   valuations. The county's [parcel metadata](https://www5.kingcounty.gov/sdc/?Layer=parcel_area)
   identifies these as water placeholders, not tax parcels. Parcels explicitly
@@ -319,6 +352,13 @@ and condo coverage, including parcels removed by other/manual exclusions.
   retains the matched name under `bnsf_property_name`. This is name-based
   association, not comprehensive ownership matching: the public parcel sources
   omit full owner names, and differently named BNSF-owned parcels can be missed.
+- Property names containing `SEATTLE HOUSING AUTHORITY` or the standalone
+  abbreviation `SHA` (including `MF- SHA- EXEMPT` and `Olive Ridge-SHA`)
+  are excluded case-insensitively across all categories. The assessment audit
+  records `seattle_housing_authority_property_name` and the source property names.
+  Neighbor exceptions cannot override this exclusion. `SHA` inside unrelated
+  words such as `SHARED` or `SHADOW` does not match. Other abbreviations such as
+  `SEATTLE HOUSING AUTH` are not inferred; this is not an ownership lookup.
 - All public/government-owned parcels are excluded using the county's
   [public-ownership layer](https://gismaps.kingcounty.gov/arcgis/rest/services/Property/KingCo_PropertyInfo/MapServer/7)
   even when the assessor present-use code says vacant or commercial parking.
@@ -447,7 +487,7 @@ before redistributing or selling derived data.
 Commit these generated files with the application:
 
 - `exports\empty-parcels.geojson`: map polygons, classifications and parcel details.
-- `exports\aerial-catalog.json`: aerial groups, addresses, lot areas and crop bounds.
+- `exports\aerial-catalog.json`: aerial groups, parcel IDs, addresses, lot areas and crop bounds.
 - `exports\aerial-boundaries.json`: individual parcel outlines for each aerial group.
 
 After a successful `dotnet run -- export`, commit all three together. The aerial
@@ -470,9 +510,23 @@ dotnet run --launch-profile http
 
 Open `http://localhost:5262/` for the public aerial-first landing page. It starts
 at a random group and uses a native range slider to browse the complete, stable
-group catalog. **Show Parcels** is checked by default and displays only the
-current group's individual outlines. The address and combined lot area are
+group catalog. Click the aerial map to focus the slider without scrolling, then
+use the arrow keys to move between views. **Refresh** selects a different random
+group without reloading the page or changing the parcel-outline preference.
+It is disabled when only one group is available. **Show Parcels** is checked by default
+and displays only the current group's individual outlines. The address and combined lot area are
 centered below the slider; no city line, parcel count, or address-source badge is shown.
+An initially collapsed **Parcel IDs** section below the lot area lists every
+member PIN, even when **Show Parcels** is unchecked. It closes when changing
+views. Each PIN has a **View on Assessor** link beside it that opens the parcel's
+King County eRealProperty record in a new tab. A period separates each PIN from
+its link; text selection uses the browser's native behavior. Additional addresses
+are not displayed.
+
+**View on Google Maps** opens the group's geographic center in satellite view
+at a zoom based on the fitted aerial view. It opens in a new tab or the Google
+Maps app on supported devices, without an API key. Google supplies its own
+imagery; the site's parcel outlines are not transferred.
 
 `exports\aerial-catalog.json` is served by `/api/aerial-groups`. Group boundaries
 are fetched on demand at `/api/aerial-groups/{id}/parcels`; they come from
@@ -530,8 +584,44 @@ written county permission. The review map loads imagery only after selecting
 the aerial action; the landing page loads its current aerial view automatically.
 Neither page bulk-fetches the imagery for other groups.
 
-Focused landing-page JavaScript regressions run with the built-in Node test runner:
+Browser interaction regressions run with the built-in Node test runner:
 
 ```powershell
-node --test tests\aerial-page.test.cjs
+node --test tests\aerial-page.test.cjs tests\map-review.test.cjs
 ```
+
+### Save reviewed exclusions locally
+
+The local map includes an **Exclude parcels** section. Enter one or more
+10-digit PINs separated by commas or whitespace, add a note, and select
+**Save exclusions**. The whole batch is appended to `reviewed-exclusions.json`
+with reason `reviewed_map_exclusion`. Invalid IDs, duplicate IDs, and existing
+reviewed exclusions reject the batch without overwriting prior notes.
+Notes are included in generated exports; do not enter private information.
+
+Saving starts an in-process background export without rebuilding or stopping
+the server. The editor displays progress and prevents concurrent save/export
+jobs. It uses cached GIS/address and bulk inputs only; if inputs are missing,
+prepare them once with the export CLI. No taxpayer detail pages are requested.
+
+The map continues serving the previous dataset while the new inventory and
+aerial artifacts are generated and validated in a staging directory. Publication
+briefly holds API reads until the complete file set is installed; replacement
+failures roll back the old files. The map reloads after success without changing
+the map position or category filters. Commit the review file and the three
+runtime exports together as before.
+
+If exporting fails, the saved exclusions remain in place and the editor shows
+the error with **Retry export**, which regenerates from the existing review file
+without submitting duplicate PINs. **Regenerate exports** also applies reviews
+saved before a server restart. If publication and rollback both fail, the API
+stops serving the inconsistent dataset and the local server logs identify the
+retained backup directory for recovery.
+
+The editor is enabled by `ParcelReview:Enabled` in Development and disabled by
+default in Production. Start it locally with
+`dotnet run --configuration Release --launch-profile http`. It also requires a
+loopback connection and a localhost/loopback Host header; save requests must
+come from the same origin. Public/reverse-proxied map views remain read-only.
+For a local run without the Development profile, explicitly pass
+`--ParcelReview:Enabled true` after `dotnet run --`.

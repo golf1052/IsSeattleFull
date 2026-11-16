@@ -9,11 +9,13 @@ public sealed record ReviewedParcelExclusion
     public required string Evidence { get; init; }
 
     public static async Task<IReadOnlyDictionary<string, ReviewedParcelExclusion>> LoadAsync(
-        string path, CancellationToken cancellationToken)
+        string path, CancellationToken cancellationToken) =>
+        Parse(await File.ReadAllTextAsync(path, cancellationToken), path);
+
+    internal static IReadOnlyDictionary<string, ReviewedParcelExclusion> Parse(string content, string path)
     {
-        await using var stream = File.OpenRead(path);
-        var entries = await JsonSerializer.DeserializeAsync<ReviewedParcelExclusion[]>(
-            stream, new JsonSerializerOptions(JsonSerializerDefaults.Web), cancellationToken)
+        var entries = JsonSerializer.Deserialize<ReviewedParcelExclusion[]>(
+            content, new JsonSerializerOptions(JsonSerializerDefaults.Web))
             ?? throw new InvalidDataException($"{path} must contain an array of reviewed exclusions.");
         var exclusions = new Dictionary<string, ReviewedParcelExclusion>(StringComparer.Ordinal);
         foreach (var entry in entries)

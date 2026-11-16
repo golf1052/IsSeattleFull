@@ -127,15 +127,19 @@ public sealed class AerialCatalogTests
         Directory.CreateDirectory(output);
         try
         {
-            var geometry = Rectangle();
+            var left = Rectangle();
+            var right = Rectangle(1);
+            var geometry = ParkIndex.Merge([left, right])!;
             await File.WriteAllTextAsync(Path.Combine(data, AerialCatalog.AddressPoints.FileName),
                 JsonSerializer.Serialize(new { type = "FeatureCollection", features = AddressPoints(("123 MAIN ST", "neighbor", -122.29998, 47.60005)) }));
             await File.WriteAllTextAsync(Path.Combine(output, "empty-parcels.geojson"),
-                JsonSerializer.Serialize(new { type = "FeatureCollection", features = new[] { Parcel("one", geometry, [3400]) } }));
+                JsonSerializer.Serialize(new { type = "FeatureCollection", features = new[] {
+                    Parcel("0000000001", left, [1000]), Parcel("0000000002", right, [2400])
+                } }));
             await File.WriteAllTextAsync(Path.Combine(output, "empty-parcel-groups.geojson"),
                 JsonSerializer.Serialize(new { type = "FeatureCollection", features = new[] {
                     new { geometry = JsonSerializer.SerializeToElement(geometry, ParkIndex.GeometryJson),
-                        properties = new { Id = "aerial-one", ParcelPins = new[] { "one" }, Bounds = new[] { -122.3, 47.6, -122.2999, 47.6001 } } }
+                        properties = new { Id = "aerial-one", ParcelPins = new[] { "0000000002", "0000000001" }, Bounds = new[] { -122.3, 47.6, -122.2998, 47.6001 } } }
                 } }));
             using var http = new HttpClient(new ForbidNetwork());
             var cache = new DatasetCache(http, TextWriter.Null);
@@ -145,19 +149,25 @@ public sealed class AerialCatalogTests
             using var catalog = JsonDocument.Parse(first);
             Assert.Equal("Near 123 Main St", catalog.RootElement.GetProperty("groups")[0].GetProperty("displayAddress").GetString());
             Assert.Equal(3400, catalog.RootElement.GetProperty("groups")[0].GetProperty("lotAreaSquareFeet").GetDecimal());
+            Assert.Equal(["0000000001", "0000000002"], catalog.RootElement.GetProperty("groups")[0]
+                .GetProperty("parcelPins").EnumerateArray().Select(pin => pin.GetString()));
             var log = new StringWriter();
             await AerialCatalog.BuildAsync(cache, data, output, false, log, default);
             Assert.Contains("Using cached aerial address/area enrichment", log.ToString());
             Assert.Equal(first, await File.ReadAllTextAsync(path));
             var boundaries = new AerialBoundaryStore(Path.Combine(output, "aerial-boundaries.json"));
-            Assert.NotNull(boundaries.Read("aerial-one").Geometry);
+            Assert.Equal(["0000000001", "0000000002"], boundaries.Read("aerial-one").Geometry!.Value
+                .GetProperty("features").EnumerateArray().Select(feature => feature.GetProperty("properties").GetProperty("pin").GetString()));
             Assert.Null(boundaries.Read("..\\secret").Geometry);
             await File.WriteAllTextAsync(Path.Combine(output, "empty-parcels.geojson"),
-                JsonSerializer.Serialize(new { type = "FeatureCollection", features = new[] { Parcel("one", geometry, [3500], assessorAddress: "1417 YESLER WAY 98122") } }));
+                JsonSerializer.Serialize(new { type = "FeatureCollection", features = new[] {
+                    Parcel("0000000001", left, [3500], assessorAddress: "1417 YESLER WAY 98122"),
+                    Parcel("0000000002", right, [2400])
+                } }));
             await AerialCatalog.BuildAsync(cache, data, output, false, TextWriter.Null, default);
             using var changed = JsonDocument.Parse(await File.ReadAllTextAsync(path));
             Assert.Equal("1417 Yesler Way", changed.RootElement.GetProperty("groups")[0].GetProperty("displayAddress").GetString());
-            Assert.Equal(3500, changed.RootElement.GetProperty("groups")[0].GetProperty("lotAreaSquareFeet").GetDecimal());
+            Assert.Equal(5900, changed.RootElement.GetProperty("groups")[0].GetProperty("lotAreaSquareFeet").GetDecimal());
         }
         finally
         {

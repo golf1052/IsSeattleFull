@@ -41,7 +41,7 @@ p { line-height: 1.55; }
 fieldset { border: 0; padding: 0; margin: 24px 0; min-width: 0; }
 legend { font-size: 1rem; font-weight: 650; padding: 0; margin-bottom: 16px; }
 .select-label, .control-label { display: block; font-size: .78rem; font-weight: 650; margin: 12px 0 7px; }
-select, input[type="search"], button {
+select, input[type="search"], textarea, button {
     font: inherit;
     font-size: .82rem;
     border: 1px solid #c8d5d9;
@@ -51,10 +51,11 @@ select, input[type="search"], button {
     color: inherit;
 }
 select { width: 100%; }
+textarea { display: block; width: 100%; resize: vertical; }
 button { cursor: pointer; background: #f4f8f8; font-weight: 600; }
 button:hover { background: #e4efef; }
 button:disabled { cursor: default; opacity: .5; }
-input:focus-visible, select:focus-visible, button:focus-visible {
+input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-visible {
     outline: 3px solid #007f8b;
     outline-offset: 2px;
 }
@@ -70,6 +71,8 @@ input:focus-visible, select:focus-visible, button:focus-visible {
 .search-row { display: flex; gap: 6px; }
 .search-row input { width: 100%; min-width: 0; }
 .details { border-top: 1px solid #e2e9eb; padding-top: 20px; margin-top: 12px; }
+#reviewFields { margin: 0; }
+#reviewFields button { width: 100%; margin-top: 8px; }
 .badge { display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: .75rem; font-weight: 650; margin-bottom: 8px; background: #eaf4ee; color: #166f49; }
 .badge.review { background: #fff0ed; color: #a43d28; }
 dl { margin: 12px 0; font-size: .82rem; }

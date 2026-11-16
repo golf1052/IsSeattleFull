@@ -12,7 +12,7 @@ public sealed class DatasetSnapshot(JsonDocument document, JsonElement source) :
     public void Dispose() => document.Dispose();
 }
 
-public sealed class DatasetCache(HttpClient http, TextWriter log)
+public sealed class DatasetCache(HttpClient http, TextWriter log, bool allowDownloads = true)
 {
     public static readonly DatasetDefinition Parcels = new(
         "parcels.geojson",
@@ -77,6 +77,8 @@ public sealed class DatasetCache(HttpClient http, TextWriter log)
         var path = Path.Combine(directory, definition.FileName);
         if (refresh || !File.Exists(path))
         {
+            if (!allowDownloads)
+                throw new InvalidDataException($"Cached dataset {definition.FileName} is missing. Run the export CLI once to prepare local data before retrying.");
             await DownloadAsync(definition, path, cancellationToken);
         }
         else

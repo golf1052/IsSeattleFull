@@ -57,7 +57,7 @@
   {
     "pin": "8127700280",
     "reason": "reviewed_completed_building",
-    "evidence": "User review and assessor screenshot on 2026-11-14: recently completed building at 2554 30TH AVE W. The assessor's Valued Year 2026 / Tax Year 2027 row shows $1,001,000 appraised improvements; the public GIS still reports $0 for the certified 2026 tax roll."
+    "evidence": "User review and assessor screenshot on 2026-11-14: recently completed building at 2554 30TH AVE W. The assessor\u0027s Valued Year 2026 / Tax Year 2027 row shows $1,001,000 appraised improvements; the public GIS still reports $0 for the certified 2026 tax roll."
   },
   {
     "pin": "4214500000",
@@ -82,7 +82,7 @@
   {
     "pin": "9528101691",
     "reason": "reviewed_cross_parcel_association",
-    "evidence": "User review on 2026-11-15: associated with 9528101710, Green Lake Village, which carries $105,810,700 in tax-year-2027 improvements. The source name incorrectly says 'imp on Minor 1691', referring to itself; preserve the user-corrected association instead of interpreting all self-references as exclusions."
+    "evidence": "User review on 2026-11-15: associated with 9528101710, Green Lake Village, which carries $105,810,700 in tax-year-2027 improvements. The source name incorrectly says \u0027imp on Minor 1691\u0027, referring to itself; preserve the user-corrected association instead of interpreting all self-references as exclusions."
   },
   {
     "pin": "9528101745",
@@ -113,5 +113,1595 @@
     "pin": "3448001625",
     "reason": "reviewed_auto_dealership_site",
     "evidence": "User review on 2026-11-15: this is an auto-related parcel and must be excluded despite its Vacant(Commercial) classification. The assessor names it BILL PIERRE USED TRUCKS AND CARS and shows $0 improvements. Preserve the source classification and apply the reviewed correction; neighbor exceptions cannot override it."
+  },
+  {
+    "pin": "2840200606",
+    "reason": "reviewed_cross_parcel_association",
+    "evidence": "User map review on 2026-11-15: group with 2840200605 as part of the Duwamish Longhouse and Cultural Center site and exclude. The source records present use 316 and $0 improvements. The center parcel\u0027s property name has a trailing period while this parcel\u0027s name does not, so strict same-name matching misses the association."
+  },
+  {
+    "pin": "2840200630",
+    "reason": "reviewed_cross_parcel_association",
+    "evidence": "User map review on 2026-11-15: group with 2840200605 as part of the Duwamish Longhouse and Cultural Center site and exclude. The source records present use 316 and $0 improvements. The center parcel\u0027s property name has a trailing period while this parcel\u0027s name does not, so strict same-name matching misses the association."
+  },
+  {
+    "pin": "3278600490",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "High Point Juneau P-Patch"
+  },
+  {
+    "pin": "3278602620",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Judy Fay Park"
+  },
+  {
+    "pin": "3278602630",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Judy Fay Park"
+  },
+  {
+    "pin": "3278602420",
+    "reason": "reviewed_government_owned_parcel",
+    "evidence": "User review and King County eRealProperty detail page verified on 2026-11-15: the Name field identifies SEATTLE HOUSING AUTHORITY and the page explicitly identifies this as a government-owned parcel. Property Name is blank in both the assessor page and downloaded bulk data; the public-ownership GIS layer omits this PIN, so retain this reviewed exclusion separately from the property-name rule."
+  },
+  {
+    "pin": "3278610080",
+    "reason": "reviewed_government_owned_parcel",
+    "evidence": "One-off KCA review on 2026-11-15 of the connected parcel group containing user-reported 3278610100: the taxpayer Name is SEATTLE HOUSING AUTHORITY and the detail page explicitly identifies this as government-owned. Source: https://blue.kingcounty.com/Assessor/eRealProperty/Detail.aspx?ParcelNbr=3278610080"
+  },
+  {
+    "pin": "3278610090",
+    "reason": "reviewed_government_owned_parcel",
+    "evidence": "One-off KCA review on 2026-11-15 of the connected parcel group containing user-reported 3278610100: the taxpayer Name is SEATTLE HOUSING AUTHORITY and the detail page explicitly identifies this as government-owned. Source: https://blue.kingcounty.com/Assessor/eRealProperty/Detail.aspx?ParcelNbr=3278610090"
+  },
+  {
+    "pin": "3278610100",
+    "reason": "reviewed_government_owned_parcel",
+    "evidence": "User-reported SHA parcel verified in a one-off KCA review on 2026-11-15: the taxpayer Name is SEATTLE HOUSING AUTHORITY and the detail page explicitly identifies this as government-owned. Source: https://blue.kingcounty.com/Assessor/eRealProperty/Detail.aspx?ParcelNbr=3278610100"
+  },
+  {
+    "pin": "3278610200",
+    "reason": "reviewed_government_owned_parcel",
+    "evidence": "One-off KCA review on 2026-11-15 of the connected parcel group containing user-reported 3278610100: the taxpayer Name is SEATTLE HOUSING AUTHORITY and the detail page explicitly identifies this as government-owned. Source: https://blue.kingcounty.com/Assessor/eRealProperty/Detail.aspx?ParcelNbr=3278610200"
+  },
+  {
+    "pin": "3278610210",
+    "reason": "reviewed_government_owned_parcel",
+    "evidence": "One-off KCA review on 2026-11-15 of the connected parcel group containing user-reported 3278610100: the taxpayer Name is SEATTLE HOUSING AUTHORITY and the detail page explicitly identifies this as government-owned. Source: https://blue.kingcounty.com/Assessor/eRealProperty/Detail.aspx?ParcelNbr=3278610210"
+  },
+  {
+    "pin": "3278610220",
+    "reason": "reviewed_government_owned_parcel",
+    "evidence": "One-off KCA review on 2026-11-15 of the connected parcel group containing user-reported 3278610100: the taxpayer Name is SEATTLE HOUSING AUTHORITY and the detail page explicitly identifies this as government-owned. Source: https://blue.kingcounty.com/Assessor/eRealProperty/Detail.aspx?ParcelNbr=3278610220"
+  },
+  {
+    "pin": "3278610230",
+    "reason": "reviewed_government_owned_parcel",
+    "evidence": "One-off KCA review on 2026-11-15 of the connected parcel group containing user-reported 3278610100: the taxpayer Name is SEATTLE HOUSING AUTHORITY and the detail page explicitly identifies this as government-owned. Source: https://blue.kingcounty.com/Assessor/eRealProperty/Detail.aspx?ParcelNbr=3278610230"
+  },
+  {
+    "pin": "3278610330",
+    "reason": "reviewed_government_owned_parcel",
+    "evidence": "One-off KCA review on 2026-11-15 of the connected parcel group containing user-reported 3278610100: the taxpayer Name is SEATTLE HOUSING AUTHORITY and the detail page explicitly identifies this as government-owned. Source: https://blue.kingcounty.com/Assessor/eRealProperty/Detail.aspx?ParcelNbr=3278610330"
+  },
+  {
+    "pin": "3278610340",
+    "reason": "reviewed_government_owned_parcel",
+    "evidence": "One-off KCA review on 2026-11-15 of the connected parcel group containing user-reported 3278610100: the taxpayer Name is SEATTLE HOUSING AUTHORITY and the detail page explicitly identifies this as government-owned. Source: https://blue.kingcounty.com/Assessor/eRealProperty/Detail.aspx?ParcelNbr=3278610340"
+  },
+  {
+    "pin": "3278610350",
+    "reason": "reviewed_government_owned_parcel",
+    "evidence": "One-off KCA review on 2026-11-15 of the connected parcel group containing user-reported 3278610100: the taxpayer Name is SEATTLE HOUSING AUTHORITY and the detail page explicitly identifies this as government-owned. Source: https://blue.kingcounty.com/Assessor/eRealProperty/Detail.aspx?ParcelNbr=3278610350"
+  },
+  {
+    "pin": "0007600108",
+    "reason": "reviewed_government_owned_parcel",
+    "evidence": "Verified during the one-off remaining-candidate KCA taxpayer audit on 2026-11-15: the Name field identifies SEATTLE HOUSING AUTHORITY and the detail page explicitly identifies this as government-owned. Source: https://blue.kingcounty.com/Assessor/eRealProperty/Detail.aspx?ParcelNbr=0007600108"
+  },
+  {
+    "pin": "0007600185",
+    "reason": "reviewed_government_owned_parcel",
+    "evidence": "Verified during the one-off remaining-candidate KCA taxpayer audit on 2026-11-15: the Name field identifies SEATTLE HOUSING AUTHORITY and the detail page explicitly identifies this as government-owned. Source: https://blue.kingcounty.com/Assessor/eRealProperty/Detail.aspx?ParcelNbr=0007600185"
+  },
+  {
+    "pin": "7671800251",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "On Harbor Island"
+  },
+  {
+    "pin": "7666701680",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "On Harbor Island"
+  },
+  {
+    "pin": "7666702940",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "On Harbor Island"
+  },
+  {
+    "pin": "3277800705",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Part of building"
+  },
+  {
+    "pin": "3278610700",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278610740",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278610790",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278610830",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278610840",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278610870",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278613810",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278614150",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278614160",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278614170",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278614220",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278614330",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278614340",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278614350",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278614450",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278614490",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278614500",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278614530",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278614540",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278614560",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278614570",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278614590",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278614600",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278614610",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278614620",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278614640",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278614650",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278614670",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278614680",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278614690",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278614700",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278614720",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278614730",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278611060",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278611070",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278611080",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278611090",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278611100",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278611110",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278611120",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278611130",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278611140",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278611150",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278611160",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278611170",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278611180",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278611190",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278610940",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278610980",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278611020",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278611710",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278611720",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278611730",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278611740",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278611770",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278611780",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278611790",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278611810",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278611820",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278611840",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278611850",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278611860",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278611870",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278611890",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278611910",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278611920",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278612120",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278611970",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278612000",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278612020",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278612030",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278612160",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "5154700020",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Not vacant, partly overlaps house"
+  },
+  {
+    "pin": "2346800070",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Not vacant"
+  },
+  {
+    "pin": "3278604310",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278605610",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278605620",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278605750",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278605760",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278605730",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278605840",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278605850",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278605860",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278605870",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278605880",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278605810",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278612750",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278612760",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278612770",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278606360",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA Sunrise Park"
+  },
+  {
+    "pin": "3278613250",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA Sunrise Park"
+  },
+  {
+    "pin": "3278613350",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA Sunrise Park"
+  },
+  {
+    "pin": "3278606510",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278612980",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278613360",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278606350",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278612180",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278612200",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278612210",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278612230",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278612240",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278612250",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278612270",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278612280",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278612300",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278612310",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278612320",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278612340",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278612350",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278614260",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278614280",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3278300078",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3438501736",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Not vacant"
+  },
+  {
+    "pin": "3438503243",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Not vacant"
+  },
+  {
+    "pin": "8638500005",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Behind house, not vacant"
+  },
+  {
+    "pin": "3438500156",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Not vacant, overlaps house"
+  },
+  {
+    "pin": "7666700275",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Road/highway"
+  },
+  {
+    "pin": "7666205876",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Road/highway"
+  },
+  {
+    "pin": "7666205880",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Road/highway"
+  },
+  {
+    "pin": "7974200023",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Not vacant"
+  },
+  {
+    "pin": "1454100500",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Not vacant, recently demolished, but rebuild in process"
+  },
+  {
+    "pin": "8822900940",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Warehouse but not vacant"
+  },
+  {
+    "pin": "6414100574",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Private road/part of house"
+  },
+  {
+    "pin": "6414100582",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Private road/part of house"
+  },
+  {
+    "pin": "6149700025",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Car lot"
+  },
+  {
+    "pin": "6149700100",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Car lot"
+  },
+  {
+    "pin": "1926049092",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Not vacant, building"
+  },
+  {
+    "pin": "0868002485",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Blue Ridge Club HOA Park"
+  },
+  {
+    "pin": "6132600415",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Part of house"
+  },
+  {
+    "pin": "3526039023",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Ballard P-Patch and Church property"
+  },
+  {
+    "pin": "3526039030",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Ballard P-Patch and Church property"
+  },
+  {
+    "pin": "4449800424",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Overlaps house"
+  },
+  {
+    "pin": "8675400121",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Overlaps house"
+  },
+  {
+    "pin": "6021503371",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Overlaps house"
+  },
+  {
+    "pin": "6021503372",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Overlaps house"
+  },
+  {
+    "pin": "6021503373",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Overlaps house"
+  },
+  {
+    "pin": "6021502420",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "The Vine Baptist Church"
+  },
+  {
+    "pin": "6021502425",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "The Vine Baptist Church"
+  },
+  {
+    "pin": "1954690000",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Condo buildings and playground"
+  },
+  {
+    "pin": "6431500234",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Condo buildings and playground"
+  },
+  {
+    "pin": "2426039073",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Retirement community"
+  },
+  {
+    "pin": "2426039282",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Retirement community"
+  },
+  {
+    "pin": "2426039283",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Retirement community"
+  },
+  {
+    "pin": "2426039284",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Retirement community"
+  },
+  {
+    "pin": "2426039285",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Retirement community"
+  },
+  {
+    "pin": "2426039286",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Retirement community"
+  },
+  {
+    "pin": "2426039287",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Retirement community"
+  },
+  {
+    "pin": "2426039288",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Retirement community"
+  },
+  {
+    "pin": "2426039155",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Church property"
+  },
+  {
+    "pin": "2426039167",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Church property"
+  },
+  {
+    "pin": "2767700995",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "24th Market Apartments"
+  },
+  {
+    "pin": "2767701000",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "24th Market Apartments"
+  },
+  {
+    "pin": "2767701095",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "24th Market Apartments"
+  },
+  {
+    "pin": "2767701100",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "24th Market Apartments"
+  },
+  {
+    "pin": "7518508917",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Part of house"
+  },
+  {
+    "pin": "7518508918",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Part of house"
+  },
+  {
+    "pin": "7518508920",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Part of house"
+  },
+  {
+    "pin": "2856100456",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "House"
+  },
+  {
+    "pin": "2767700085",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "House"
+  },
+  {
+    "pin": "2767701245",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Leva on Market Apartment"
+  },
+  {
+    "pin": "2767701310",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Leva on Market Apartment"
+  },
+  {
+    "pin": "2767701315",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Leva on Market Apartment"
+  },
+  {
+    "pin": "2767701320",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Leva on Market Apartment"
+  },
+  {
+    "pin": "2767701321",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Leva on Market Apartment"
+  },
+  {
+    "pin": "2767700680",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Urbana Apartments"
+  },
+  {
+    "pin": "2767700685",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Urbana Apartments"
+  },
+  {
+    "pin": "2767700690",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Urbana Apartments"
+  },
+  {
+    "pin": "2768100395",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Windsor Ballard"
+  },
+  {
+    "pin": "2768100460",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Windsor Ballard"
+  },
+  {
+    "pin": "2767701760",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Car lot"
+  },
+  {
+    "pin": "2767701775",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Car lot"
+  },
+  {
+    "pin": "2768301260",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "House"
+  },
+  {
+    "pin": "1225039048",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "House"
+  },
+  {
+    "pin": "2767704575",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "House"
+  },
+  {
+    "pin": "2767900435",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Part of Saint Alphonsus School"
+  },
+  {
+    "pin": "9525600230",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Private road"
+  },
+  {
+    "pin": "0993000595",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Houses"
+  },
+  {
+    "pin": "0993000515",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Houses"
+  },
+  {
+    "pin": "0993000525",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Houses"
+  },
+  {
+    "pin": "6300000381",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Temporary fire station"
+  },
+  {
+    "pin": "3026049103",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Part of cemetery"
+  },
+  {
+    "pin": "2832100761",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Part of Lakeside School"
+  },
+  {
+    "pin": "8901001530",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "House"
+  },
+  {
+    "pin": "2568300263",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Private road, part of house"
+  },
+  {
+    "pin": "2568800067",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "House backyard"
+  },
+  {
+    "pin": "4073200460",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Part of house"
+  },
+  {
+    "pin": "4077800183",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Front yard"
+  },
+  {
+    "pin": "3935900080",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Part of house"
+  },
+  {
+    "pin": "1454100129",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Private road"
+  },
+  {
+    "pin": "1454100615",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Front yards"
+  },
+  {
+    "pin": "1454100625",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Front yards"
+  },
+  {
+    "pin": "2126049177",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "House"
+  },
+  {
+    "pin": "8615800025",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Fairlane Apartments"
+  },
+  {
+    "pin": "8714600055",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Shiga\u0027s Garden (P-Patch)"
+  },
+  {
+    "pin": "1142000885",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "New building"
+  },
+  {
+    "pin": "4092300180",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Recovery center"
+  },
+  {
+    "pin": "4092300405",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Building"
+  },
+  {
+    "pin": "4092300410",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Building"
+  },
+  {
+    "pin": "4092301725",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Rooming house"
+  },
+  {
+    "pin": "6794900000",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Condo building"
+  },
+  {
+    "pin": "4217400825",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Part of house"
+  },
+  {
+    "pin": "8823902620",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Building"
+  },
+  {
+    "pin": "8032700063",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Part of building"
+  },
+  {
+    "pin": "8032700064",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Part of building"
+  },
+  {
+    "pin": "8032700055",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "House"
+  },
+  {
+    "pin": "2261500045",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Building, Stone Way Apt"
+  },
+  {
+    "pin": "2261500055",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Building, Stone Way Apt"
+  },
+  {
+    "pin": "2261500060",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Building, Stone Way Apt"
+  },
+  {
+    "pin": "2261500065",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Building, Stone Way Apt"
+  },
+  {
+    "pin": "8033700065",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Building, Stone Way Apt"
+  },
+  {
+    "pin": "8033700070",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Building, Stone Way Apt"
+  },
+  {
+    "pin": "8033700075",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Building, Stone Way Apt"
+  },
+  {
+    "pin": "8033700080",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Building, Stone Way Apt"
+  },
+  {
+    "pin": "2261500086",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Building, Stone Way Apt"
+  },
+  {
+    "pin": "1931300260",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Fremont P-Patch"
+  },
+  {
+    "pin": "4088803500",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "BUCA DI BEPPO"
+  },
+  {
+    "pin": "1986200155",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Science Reading Room"
+  },
+  {
+    "pin": "2925049097",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Building"
+  },
+  {
+    "pin": "2925049039",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Daycare playground"
+  },
+  {
+    "pin": "2467400311",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Apartment"
+  },
+  {
+    "pin": "0659000265",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Apartment"
+  },
+  {
+    "pin": "8590900530",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Morano retirement"
+  },
+  {
+    "pin": "8590900550",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Morano retirement"
+  },
+  {
+    "pin": "8590900565",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Morano retirement"
+  },
+  {
+    "pin": "8590900590",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Art museum"
+  },
+  {
+    "pin": "8590900120",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Church"
+  },
+  {
+    "pin": "9822000300",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Building"
+  },
+  {
+    "pin": "3319501940",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Franz bakery"
+  },
+  {
+    "pin": "3319501490",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "buildings"
+  },
+  {
+    "pin": "3319501530",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "buildings"
+  },
+  {
+    "pin": "3319501520",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "buildings"
+  },
+  {
+    "pin": "3320500055",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Building"
+  },
+  {
+    "pin": "3320000595",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "THANHSON TOFU"
+  },
+  {
+    "pin": "8170100160",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "THANHSON TOFU"
+  },
+  {
+    "pin": "8170100161",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "THANHSON TOFU"
+  },
+  {
+    "pin": "7128300020",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Daycare"
+  },
+  {
+    "pin": "7128300655",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "House"
+  },
+  {
+    "pin": "7658600065",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Judkins P-Patch"
+  },
+  {
+    "pin": "3274800540",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Church"
+  },
+  {
+    "pin": "1250204730",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Big house"
+  },
+  {
+    "pin": "1250204735",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Big house"
+  },
+  {
+    "pin": "1250204740",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Big house"
+  },
+  {
+    "pin": "1282301375",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Mekong Asian Market"
+  },
+  {
+    "pin": "7879400140",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Building"
+  },
+  {
+    "pin": "6056100480",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA Central Park"
+  },
+  {
+    "pin": "6056100560",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA park"
+  },
+  {
+    "pin": "6056110910",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA property"
+  },
+  {
+    "pin": "6056110920",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA property"
+  },
+  {
+    "pin": "6056110380",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA property"
+  },
+  {
+    "pin": "6056110030",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA property"
+  },
+  {
+    "pin": "6056110260",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA property"
+  },
+  {
+    "pin": "6056111920",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA property"
+  },
+  {
+    "pin": "5295200175",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Church"
+  },
+  {
+    "pin": "5295200185",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Church"
+  },
+  {
+    "pin": "1711900330",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Houses"
+  },
+  {
+    "pin": "1711900335",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Houses"
+  },
+  {
+    "pin": "4174600384",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Chief Sealth Trail"
+  },
+  {
+    "pin": "3395040340",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA Shafer Park"
+  },
+  {
+    "pin": "9284802770",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "House"
+  },
+  {
+    "pin": "9284800815",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Private road"
+  },
+  {
+    "pin": "2924049090",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Cranes"
+  },
+  {
+    "pin": "6871200651",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Industrial storage yard"
+  },
+  {
+    "pin": "6871200660",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Industrial storage yard"
+  },
+  {
+    "pin": "6871200670",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Industrial storage yard"
+  },
+  {
+    "pin": "6871200675",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Industrial storage yard"
+  },
+  {
+    "pin": "5087400265",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Safeway Grocery Store parking"
+  },
+  {
+    "pin": "7129800046",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Houses"
+  },
+  {
+    "pin": "7129800048",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Houses"
+  },
+  {
+    "pin": "7129800049",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Houses"
+  },
+  {
+    "pin": "7129800051",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Houses"
+  },
+  {
+    "pin": "4006000487",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "House"
+  },
+  {
+    "pin": "3714800030",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Church and house"
+  },
+  {
+    "pin": "3723800122",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Church and house"
+  },
+  {
+    "pin": "4299700170",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Part of house"
+  },
+  {
+    "pin": "3395070130",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "6064801520",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "6064801530",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "6064801350",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3395041040",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3395041200",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3395041245",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "3395041360",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "6064800190",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "6064800200",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "6064800620",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "6064800630",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "6064800930",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "6064801140",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "6064801150",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "SHA"
+  },
+  {
+    "pin": "2336300076",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Houses"
+  },
+  {
+    "pin": "2336300077",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Houses"
+  },
+  {
+    "pin": "5247801745",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Uwajimaya parking"
+  },
+  {
+    "pin": "5247801765",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Uwajimaya parking"
+  },
+  {
+    "pin": "7666202650",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Uwajimaya parking"
+  },
+  {
+    "pin": "7666202657",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Uwajimaya parking"
+  },
+  {
+    "pin": "7666202665",
+    "reason": "reviewed_map_exclusion",
+    "evidence": "Uwajimaya parking"
   }
 ]

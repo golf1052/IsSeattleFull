@@ -338,13 +338,15 @@ public sealed class AssessorBulkTests
     public async Task CachesDerivedDataAndRejectsChangedArchives()
     {
         using var files = new BulkFixture();
-        files.Parcel("0000000001", "2", "R");
+        files.Parcel("0000000001", "2", "R", highestBestUseAsIfVacant: "9", highestBestUseAsImproved: "1");
         files.History("0000000001", "2027", "100", "2026-09-01 00:00:00");
         files.Write();
         await files.Load("0000000001");
         var log = new StringWriter();
-        await AssessorBulkLoader.LoadAsync(files.Directory, new HashSet<string> { "0000000001" }, log, default);
+        var cached = await AssessorBulkLoader.LoadAsync(files.Directory, new HashSet<string> { "0000000001" }, log, default);
         Assert.Contains("Using cached bulk enrichment", log.ToString());
+        Assert.Equal(9, cached.Parcels["0000000001"].Parcel!.HighestBestUseAsIfVacant);
+        Assert.Equal(1, cached.Parcels["0000000001"].Parcel!.HighestBestUseAsImproved);
         await File.AppendAllTextAsync(Path.Combine(files.Directory, "Value History.zip"), "changed");
         await Assert.ThrowsAsync<InvalidDataException>(() => files.Load("0000000001"));
     }
@@ -380,10 +382,16 @@ public sealed class AssessorBulkTests
         files.Parcel("8823902795", "11", "C");
         files.Parcel("0000000004", "2", "R");
         files.Add("EXTR_Parcel.csv", ("Major", "000000"), ("Minor", "0005"), ("PresentUse", "180"),
-            ("PropType", "R"), ("Topography", "0"));
+            ("PropType", "R"), ("Topography", "0"), ("HBUAsIfVacant", "1"), ("HBUAsImproved", "1"));
         files.Parcel("0000000007", "316", "R");
         files.Parcel("0000000008", "11", "C");
         files.Parcel("0000000009", "2", "R");
+        files.Parcel("0000000010", "300", "R", name: "Misclassified vacant land",
+            highestBestUseAsIfVacant: "9", highestBestUseAsImproved: "1");
+        files.Parcel("0000000011", "300", "R", name: "MF- SHA- EXEMPT");
+        files.Parcel("0000000012", "300", "R", name: "Overflow site (w #0005)");
+        files.Parcel("0000000013", "180", "R", name: "110-unit apartment site (Together w/ #0003)");
+        files.Parcel("0000000014", "300", "R", name: "Shopping site (SAME OWNERSHIP W/ACCTS #000000-0003)");
         files.History("8127700280", "2027", "1001000", "2026-07-21 00:00:00");
         files.History("8823902795", "2027", "5119000", "2026-09-15 00:00:00");
         files.History("0000000004", "2027", "0", "2026-09-15 00:00:00");
@@ -392,6 +400,11 @@ public sealed class AssessorBulkTests
         files.History("0000000008", "2027", "0", "2026-09-01 00:00:00");
         files.ExemptHistory("0000000008", "2027", "50000", "2026-09-02 00:00:00");
         files.History("0000000009", "2027", "0", "2026-09-01 00:00:00");
+        files.History("0000000010", "2027", "0", "2026-09-01 00:00:00");
+        files.History("0000000011", "2027", "0", "2026-09-01 00:00:00");
+        files.History("0000000012", "2027", "0", "2026-09-01 00:00:00");
+        files.History("0000000013", "2027", "24303000", "2026-09-01 00:00:00");
+        files.History("0000000014", "2027", "0", "2026-09-01 00:00:00");
         files.Add("EXTR_ResBldg.csv", ("Major", "000000"), ("Minor", "0004"), ("BldgNbr", "1"),
             ("NbrLivingUnits", "1"), ("SqFtTotLiving", "3820"), ("YrBuilt", "2025"),
             ("PcntComplete", "70"), ("Address", "4 TEST ST"));
@@ -399,7 +412,7 @@ public sealed class AssessorBulkTests
         var data = Path.Combine(files.Directory, "gis");
         var output = Path.Combine(files.Directory, "output");
         System.IO.Directory.CreateDirectory(data);
-        var pins = new[] { "8127700280", "8823902795", "0000000003", "0000000004", "0000000005", "0000000006", "0000000007", "0000000008", "0000000009" };
+        var pins = new[] { "8127700280", "8823902795", "0000000003", "0000000004", "0000000005", "0000000006", "0000000007", "0000000008", "0000000009", "0000000010", "0000000011", "0000000012", "0000000013", "0000000014" };
         var features = pins.Select((pin, i) =>
         {
             var west = pin == "0000000009" ? -122.3 + 7 * 0.01 + 0.0001 : -122.3 + i * 0.01;
@@ -453,6 +466,11 @@ public sealed class AssessorBulkTests
         Assert.False(exported.ContainsKey("0000000007"));
         Assert.False(exported.ContainsKey("0000000008"));
         Assert.False(exported.ContainsKey("0000000009"));
+        Assert.False(exported.ContainsKey("0000000010"));
+        Assert.False(exported.ContainsKey("0000000011"));
+        Assert.False(exported.ContainsKey("0000000012"));
+        Assert.False(exported.ContainsKey("0000000013"));
+        Assert.False(exported.ContainsKey("0000000014"));
         Assert.Equal(JsonValueKind.Null, exported["0000000003"].GetProperty("properties").GetProperty("appraisedImprovementValue").ValueKind);
         Assert.Equal("needs_review", exported["0000000003"].GetProperty("properties").GetProperty("category").GetString());
         var merged = exported["0000000005"].GetProperty("properties");
@@ -474,6 +492,29 @@ public sealed class AssessorBulkTests
         Assert.Equal(9000000, vacant.GetProperty("assessment").GetProperty("ImprovementValue").GetDecimal());
         var associated = exclusions.RootElement.EnumerateArray().Single(row => row.GetProperty("pin").GetString() == "0000000009");
         Assert.Equal("shared_name_site_improvements", associated.GetProperty("reasons")[0].GetString());
+        var park = exclusions.RootElement.EnumerateArray().Single(row => row.GetProperty("pin").GetString() == "0000000010");
+        Assert.Equal("park_recreation_highest_best_use", park.GetProperty("reasons")[0].GetString());
+        Assert.Equal(9, park.GetProperty("assessor").GetProperty("Parcel").GetProperty("HighestBestUseAsIfVacant").GetInt32());
+        Assert.Equal(1, park.GetProperty("assessor").GetProperty("Parcel").GetProperty("HighestBestUseAsImproved").GetInt32());
+        var housing = exclusions.RootElement.EnumerateArray().Single(row => row.GetProperty("pin").GetString() == "0000000011");
+        Assert.Equal("seattle_housing_authority_property_name", housing.GetProperty("reasons")[0].GetString());
+        Assert.Equal("MF- SHA- EXEMPT", housing.GetProperty("propertyNames")[0].GetString());
+        var withParcel = exclusions.RootElement.EnumerateArray().Single(row => row.GetProperty("pin").GetString() == "0000000012");
+        Assert.Equal("cross_parcel_improvements", withParcel.GetProperty("reasons")[0].GetString());
+        var withReference = Assert.Single(withParcel.GetProperty("references").EnumerateArray());
+        Assert.Equal("validated_with_parcel_reference", withReference.GetProperty("Method").GetString());
+        Assert.Equal("0000000005", Assert.Single(withReference.GetProperty("ParcelPins").EnumerateArray()).GetString());
+        var together = exclusions.RootElement.EnumerateArray().Single(row => row.GetProperty("pin").GetString() == "0000000013");
+        Assert.Equal("cross_parcel_improvements", together.GetProperty("reasons")[0].GetString());
+        Assert.Equal(24303000, together.GetProperty("assessment").GetProperty("ImprovementValue").GetDecimal());
+        var togetherReference = Assert.Single(together.GetProperty("references").EnumerateArray());
+        Assert.Equal("together_parcel_reference", togetherReference.GetProperty("Method").GetString());
+        Assert.Equal("0000000003", Assert.Single(togetherReference.GetProperty("ParcelPins").EnumerateArray()).GetString());
+        var sameOwnership = exclusions.RootElement.EnumerateArray().Single(row => row.GetProperty("pin").GetString() == "0000000014");
+        Assert.Equal("cross_parcel_improvements", sameOwnership.GetProperty("reasons")[0].GetString());
+        var sameOwnershipReference = Assert.Single(sameOwnership.GetProperty("references").EnumerateArray());
+        Assert.Equal("same_ownership_parcel_reference", sameOwnershipReference.GetProperty("Method").GetString());
+        Assert.Equal("0000000003", Assert.Single(sameOwnershipReference.GetProperty("ParcelPins").EnumerateArray()).GetString());
     }
 
     private static ParcelRecord GeometryRow(string pin) => new(pin, "Seattle", null, null, null, 0,
@@ -502,6 +543,8 @@ public sealed class AssessorBulkTests
         Add(80, 80); Add(81, 81, value: 50000, shape: "1");
         Add(90, 90); Add(91, 91, shape: "1", name: "ECON. UNIT TO MINOR #0090");
         Add(100, 100); Add(101, 101, shape: "1", name: "SITE - SUBSIDIARY");
+        Add(110, 110); Add(111, 111, shape: "1", name: "SEATTLE HOUSING AUTHORITY - VACANT");
+        Add(120, 120); Add(121, 121, shape: "1", name: "AEGIS ASSISTED LIVING SUBSIDIARY W/0120");
         files.Add("EXTR_ResBldg.csv", ("Major", "000000"), ("Minor", "0051"), ("BldgNbr", "1"),
             ("NbrLivingUnits", "1"), ("SqFtTotLiving", "2000"), ("PcntComplete", "70"));
         files.Write();
@@ -553,12 +596,16 @@ public sealed class AssessorBulkTests
         Assert.Equal(1, exported["0000000002"].GetProperty("properties").GetProperty("assessor").GetProperty("Parcel")
             .GetProperty("RestrictiveSizeShape").GetInt32());
         Assert.Equal(1000, exported["0000000011"].GetProperty("properties").GetProperty("appraisedImprovementValue").GetDecimal());
-        foreach (var id in new[] { 3, 21, 31, 41, 51, 61, 71, 81, 91, 101 })
+        foreach (var id in new[] { 3, 21, 31, 41, 51, 61, 71, 81, 91, 101, 111, 121 })
             Assert.False(exported.ContainsKey(id.ToString("D10")), $"Unexpectedly rescued parcel {id}.");
         using var audit = JsonDocument.Parse(await File.ReadAllTextAsync(Path.Combine(output, "assessment-exclusions.json")));
         var constrainedAssociation = audit.RootElement.EnumerateArray().Single(row => row.GetProperty("pin").GetString() == "0000000091");
         Assert.Contains(constrainedAssociation.GetProperty("references").EnumerateArray(),
             reference => reference.GetProperty("Method").GetString() == "economic_unit_reference");
+        var subsidiary = audit.RootElement.EnumerateArray().Single(row => row.GetProperty("pin").GetString() == "0000000121");
+        var subsidiaryReference = Assert.Single(subsidiary.GetProperty("references").EnumerateArray());
+        Assert.Equal("subsidiary_parcel_reference", subsidiaryReference.GetProperty("Method").GetString());
+        Assert.Equal("0000000120", Assert.Single(subsidiaryReference.GetProperty("ParcelPins").EnumerateArray()).GetString());
     }
 
     private sealed class ForbidNetwork : HttpMessageHandler
@@ -573,7 +620,7 @@ internal sealed class BulkFixture : IDisposable
     private static readonly Dictionary<string, (string Archive, string Fields)> Definitions = new()
     {
         ["EXTR_LookUp.csv"] = ("Lookup", "LUType,LUItem,LUDescription"),
-        ["EXTR_Parcel.csv"] = ("Parcel", "Major,Minor,PropName,PropType,PresentUse,SqFtLot,Topography,RestrictiveSzShape,TidelandShoreland,WaterProblems,Access,PcntUnusable,Unbuildable,Wetland,SteepSlopeHazard"),
+        ["EXTR_Parcel.csv"] = ("Parcel", "Major,Minor,PropName,PropType,PresentUse,SqFtLot,Topography,RestrictiveSzShape,TidelandShoreland,WaterProblems,Access,PcntUnusable,Unbuildable,Wetland,SteepSlopeHazard,HBUAsIfVacant,HBUAsImproved"),
         ["EXTR_RPAcct_NoName.csv"] = ("Real Property Account", "Major,Minor,AcctNbr,BillYr,ApprLandVal,ApprImpsVal,TaxStat,TaxValReason,AttnLine"),
         ["EXTR_ValueHistory_V.csv"] = ("Value History", "Major,Minor,TaxYr,OmitYr,ApprLandVal,ApprImpsVal,TaxStatus,TaxValReason,ChangeDate,Reason,SplitCode"),
         ["EXTR_RealPropApplHist_V.csv"] = ("Real Property Appraisal History", "Major,Minor,RollYr,LandVal,ImpsVal,PostStatus,PostDate"),
@@ -599,11 +646,13 @@ internal sealed class BulkFixture : IDisposable
         if (!rows.TryGetValue(member, out var records)) rows[member] = records = [];
         records.Add(fields.ToDictionary(field => field.Key, field => field.Value));
     }
-    public void Parcel(string pin, string use, string type, string shape = "0", string water = "N", string name = "Test Building") => Add("EXTR_Parcel.csv",
+    public void Parcel(string pin, string use, string type, string shape = "0", string water = "N", string name = "Test Building",
+        string highestBestUseAsIfVacant = "", string highestBestUseAsImproved = "") => Add("EXTR_Parcel.csv",
         ("Major", pin[..6]), ("Minor", pin[6..]), ("PropName", name), ("PropType", type),
         ("PresentUse", use), ("SqFtLot", "1000"), ("Topography", "0"), ("RestrictiveSzShape", shape),
         ("TidelandShoreland", "0"), ("WaterProblems", water), ("Access", "4"), ("PcntUnusable", "0"),
-        ("Unbuildable", "0"), ("Wetland", "N"), ("SteepSlopeHazard", "N"));
+        ("Unbuildable", "0"), ("Wetland", "N"), ("SteepSlopeHazard", "N"),
+        ("HBUAsIfVacant", highestBestUseAsIfVacant), ("HBUAsImproved", highestBestUseAsImproved));
     public void Account(string pin, string year, string value, string suffix = "00") => Add("EXTR_RPAcct_NoName.csv",
         ("Major", pin[..6]), ("Minor", pin[6..]), ("AcctNbr", pin + suffix), ("BillYr", year),
         ("ApprLandVal", "1000"), ("ApprImpsVal", value), ("TaxStat", "T"), ("AttnLine", "PRIVATE_OWNER_CONTACT"));

@@ -29,7 +29,8 @@ public sealed class BulkAssessment
 public sealed record BulkParcelFacts(
     string? PropertyName, string? PropertyType, int? PresentUse, decimal? LotSquareFeet,
     int? Topography, int? RestrictiveSizeShape, int? TidelandShoreland, string? WaterProblems,
-    int? Access, int? PercentUnusable, string? Unbuildable, string? Wetland, string? SteepSlopeHazard);
+    int? Access, int? PercentUnusable, string? Unbuildable, string? Wetland, string? SteepSlopeHazard,
+    int? HighestBestUseAsIfVacant, int? HighestBestUseAsImproved);
 
 public sealed record BulkBuilding(
     string Kind, string Number, int? BuildingCount, int? Units, decimal? SquareFeet,

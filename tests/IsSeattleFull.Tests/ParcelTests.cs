@@ -62,6 +62,20 @@ public sealed class ParcelTests : IDisposable
         Assert.Equal(["river_creek_or_stream_use"], result.Reasons);
     }
 
+    [Theory]
+    [InlineData(300)]
+    [InlineData(180)]
+    [InlineData(9)]
+    [InlineData(null)]
+    public void ParkHighestBestUseOverridesVacantParkingAndUnknownPresentUses(int? use)
+    {
+        var record = Parcel(0, use);
+        var result = ParcelFilter.Classify([record], parkHighestBestUse: true);
+        Assert.Equal("excluded", result.Status);
+        Assert.Equal(["park_recreation_highest_best_use"], result.Reasons);
+        Assert.NotEqual("excluded", ParcelFilter.Classify([record]).Status);
+    }
+
     [Fact]
     public void PublicPlaceholdersAreExcludedWithoutExcludingRealPubliclyOwnedParcels()
     {
@@ -185,6 +199,44 @@ public sealed class ParcelTests : IDisposable
     [InlineData("BNSFIELD APARTMENTS")]
     public void UnrelatedNamesDoNotTriggerBnsfExclusions(string name) =>
         Assert.False(AssessmentReferences.IsBnsfNamed([name]));
+
+    [Theory]
+    [InlineData("SEATTLE HOUSING AUTHORITY")]
+    [InlineData("Seattle Housing Authority - Vacant Commercial")]
+    [InlineData("VERSE APARTMENTS - seattle housing authority.")]
+    [InlineData("SHA")]
+    [InlineData("MF- SHA- EXEMPT")]
+    [InlineData("Olive Ridge-SHA")]
+    [InlineData("sha vacant land")]
+    public void SeattleHousingAuthorityNamesExcludeVacantParkingAndUnknownValuationCandidates(string name)
+    {
+        var matches = AssessmentReferences.IsSeattleHousingAuthorityNamed(["Other recorded name", name]);
+        Assert.True(matches);
+        foreach (var use in new[] { 300, 316, 180 })
+        {
+            foreach (var value in new decimal?[] { 0, null })
+            {
+                var result = ParcelFilter.Classify([Parcel(value, use)], seattleHousingAuthorityNamed: matches);
+                Assert.Equal("excluded", result.Status);
+                Assert.Equal(["seattle_housing_authority_property_name"], result.Reasons);
+            }
+        }
+    }
+
+    [Theory]
+    [InlineData("SEATTLE HOUSING AUTH PLAYGROUND")]
+    [InlineData("LOW INCOME HOUSING")]
+    [InlineData("KING COUNTY HOUSING AUTHORITY")]
+    [InlineData("SHARED PARKING")]
+    [InlineData("SHADOW APARTMENTS")]
+    [InlineData("SHA256 BUILDING")]
+    public void UnrelatedPropertyNamesDoNotTriggerSeattleHousingAuthorityExclusions(string name)
+    {
+        var matches = AssessmentReferences.IsSeattleHousingAuthorityNamed([name]);
+        Assert.False(matches);
+        Assert.Equal("candidate", ParcelFilter.Classify([Parcel(0, 300)],
+            seattleHousingAuthorityNamed: matches).Status);
+    }
 
     [Theory]
     [InlineData(300)]
@@ -503,6 +555,10 @@ public sealed class ParcelTests : IDisposable
     [InlineData("1361300010", "CANCER CARE ALLIANCE OF SEATTLE (Econ. Unit to Minor #0055)", "1361300055", "economic_unit_reference")]
     [InlineData("1361300020", "Economic Unit to Minor 0055", "1361300055", "economic_unit_reference")]
     [InlineData("2436200896", "AEGIS LIVING LAURELHURST - SUBSIDIARY 0865, 0900", "2436200865,2436200900", "subsidiary_parcel_reference")]
+    [InlineData("0767000140", "AEGIS CARKEEK PARK ASSISTED LIVING SUBSIDIARY W/0145", "0767000145", "subsidiary_parcel_reference")]
+    [InlineData("0767000140", "Aegis subsidiary with 076700-0145", "0767000145", "subsidiary_parcel_reference")]
+    [InlineData("7134300610", "Mount Baker Remodeling subsidiary with P 0600, 0605", "7134300600,7134300605", "subsidiary_parcel_reference")]
+    [InlineData("7134300610", "Site subsidiary w/(P) 713430-0600", "7134300600", "subsidiary_parcel_reference")]
     public void RecognizesEconomicUnitsAndSubsidiaryParcelRoles(string pin, string name, string targets, string method)
     {
         var reference = Assert.Single(AssessmentReferences.Parse(pin, [name]));
@@ -523,6 +579,9 @@ public sealed class ParcelTests : IDisposable
             ParcelFilter.Classify([Parcel(0)], improvementReferences: [unresolved]).Reasons);
         Assert.Empty(AssessmentReferences.Parse("2436200900", ["SUBSIDIARY HOLDINGS LLC"]));
         Assert.Empty(AssessmentReferences.Parse("2436200900", ["AEGIS - SUBSIDIARY LLC"]));
+        Assert.Empty(AssessmentReferences.Parse("0767000140", ["SUBSIDIARY WITH 3 OFFICES"]));
+        Assert.Empty(AssessmentReferences.Parse("0767000140", ["SUBSIDIARY WITHHOLDING 0145 LLC"]));
+        Assert.Empty(AssessmentReferences.Parse("0767000145", ["AEGIS SUBSIDIARY W/0145"]));
         Assert.Empty(AssessmentReferences.Parse("1361300055", ["ECON. UNIT TO MINOR #0055"]));
         Assert.Empty(AssessmentReferences.Parse("9528101691", ["GREEN LAKE VILLAGE (imp on Minor 1691)"]));
     }
@@ -584,6 +643,9 @@ public sealed class ParcelTests : IDisposable
     [InlineData("Skyline First Hill w/0825, 0826, 0830, 0835, 0845, 0850")]
     [InlineData("Skyline First Hill w/0825, 0826, 0827, 0830, 0835, & 0845")]
     [InlineData("Skyline First Hill W/859040-0825 & 0826")]
+    [InlineData("Skyline First Hill w/#0825, #0826, #0830")]
+    [InlineData("Skyline First Hill W/ #859040-0825 & #0826")]
+    [InlineData("Skyline First Hill w #0825, #0826, #0830")]
     public void ShortWithListsResolveOnlyValidatedImprovementBearingTargets(string name)
     {
         var reference = Assert.Single(AssessmentReferences.ParseStructured("8590400827", [name],
@@ -595,12 +657,91 @@ public sealed class ParcelTests : IDisposable
             ParcelFilter.Classify([Parcel(0)], improvementReferences: [reference]).Reasons);
     }
 
+    [Theory]
+    [InlineData("6300000575", "PRECISION SHEET METAL (w/0565)", "6300000565")]
+    [InlineData("6300000575", "Precision Sheet Metal w/ 0565", "6300000565")]
+    [InlineData("6300000575", "PRECISION SHEET METAL (W/630000-0565)", "6300000565")]
+    [InlineData("8816400825", "J Pan Apartments (together w/ #0820)", "8816400820")]
+    [InlineData("8816400825", "J Pan Apartments (W/#0820)", "8816400820")]
+    [InlineData("8816400825", "J Pan Apartments (w/ #881640-0820)", "8816400820")]
+    [InlineData("8032700200", "PARKING LOT w #0195", "8032700195")]
+    [InlineData("8032700200", "PARKING LOT (W#0195)", "8032700195")]
+    [InlineData("8032700200", "PARKING LOT W #803270-0195", "8032700195")]
+    public void SingleShortWithReferencesRequireAValidatedImprovementBearingTarget(string pin, string name, string target)
+    {
+        var reference = Assert.Single(AssessmentReferences.ParseStructured(pin, [name],
+            candidate => candidate == target));
+        Assert.Equal([target], reference.ParcelPins);
+        Assert.Equal("validated_with_parcel_reference", reference.Method);
+        Assert.Empty(AssessmentReferences.ParseStructured(pin, [name], _ => false));
+        Assert.Equal(["cross_parcel_improvements"],
+            ParcelFilter.Classify([Parcel(0) with { Pin = pin }], improvementReferences: [reference]).Reasons);
+    }
+
+    [Theory]
+    [InlineData("Sundodger Apartments - 110 Units (Together w/ #0740 & #0745)", "1142000740,1142000745")]
+    [InlineData("Apartments (together with #114200-0740, #0745)", "1142000740,1142000745")]
+    [InlineData("Site together w/0740", "1142000740")]
+    public void ExplicitTogetherReferencesExcludeTheImprovementBearingParkingParcelEvenWhenTargetsHaveNoValue(string name, string targets)
+    {
+        var reference = Assert.Single(AssessmentReferences.Parse("1142000735", [name]));
+        Assert.Equal(targets.Split(','), reference.ParcelPins);
+        Assert.Equal("together_parcel_reference", reference.Method);
+        Assert.False(reference.Unparsed);
+        foreach (var value in new decimal?[] { 24303000, 0, null })
+        {
+            var decision = ParcelFilter.Classify([Parcel(value, 180) with { Pin = "1142000735" }],
+                improvementReferences: [reference]);
+            Assert.Equal(["cross_parcel_improvements"], decision.Reasons);
+        }
+    }
+
+    [Fact]
+    public void TogetherReferencesIgnoreSelfReferencesAndOrdinaryPhrases()
+    {
+        Assert.Empty(AssessmentReferences.Parse("1142000735", ["SITE (together w/ #0735)"]));
+        Assert.Empty(AssessmentReferences.Parse("1142000735", ["Built together with partners"]));
+        Assert.Empty(AssessmentReferences.Parse("1142000735", ["Apartments together with 110 units"]));
+    }
+
+    [Theory]
+    [InlineData("DING HOW SHOPPING CENTER (SAME OWNERSHIP W/ACCTS #817010-0120 & #817010-0135)")]
+    [InlineData("Shopping center (same ownership with accounts #0120, #0135)")]
+    [InlineData("Site (same ownership with parcels 8170100120 and 0135)")]
+    public void ExplicitSameOwnershipNotesResolveOtherParcelsWithoutRequiringTargetValues(string name)
+    {
+        var reference = Assert.Single(AssessmentReferences.Parse("8170100125", [name]));
+        Assert.Equal(["8170100120", "8170100135"], reference.ParcelPins);
+        Assert.Equal("same_ownership_parcel_reference", reference.Method);
+        Assert.False(reference.Unparsed);
+        Assert.Equal(["cross_parcel_improvements"],
+            ParcelFilter.Classify([Parcel(0) with { Pin = "8170100125" }], improvementReferences: [reference]).Reasons);
+    }
+
+    [Fact]
+    public void SameOwnershipWordingRequiresParcelReferencesAndIgnoresSelfReferences()
+    {
+        Assert.Empty(AssessmentReferences.Parse("8170100125", ["Same Ownership Holdings LLC"]));
+        Assert.Empty(AssessmentReferences.Parse("8170100125", ["Site same ownership with neighboring land"]));
+        Assert.Empty(AssessmentReferences.Parse("8170100125", ["Site (same ownership w/accts #817010-0125)"]));
+        Assert.Empty(AssessmentReferences.Parse("8170100125", ["Site same ownership w/acct #817010012000"]));
+    }
+
     [Fact]
     public void ShortWithReferencesDoNotInterpretUnitCountsOrUnvalidatedYearLists()
     {
         Assert.Empty(AssessmentReferences.ParseStructured("8590400827", ["APARTMENT W/24 UNITS"], _ => true));
         Assert.Empty(AssessmentReferences.ParseStructured("8590400827", ["RENOVATED W/2026, 2027 FINISHES"], _ => false));
         Assert.Empty(AssessmentReferences.ParseStructured("8590400827", ["BUILDING W/0827"], _ => true));
+        Assert.Empty(AssessmentReferences.ParseStructured("6300000575", ["BUILDING (w/0575)"], _ => true));
+        Assert.Empty(AssessmentReferences.ParseStructured("6300000575", ["WAREHOUSE W/2400 SQ FT"], _ => true));
+        Assert.Empty(AssessmentReferences.ParseStructured("6300000575", ["BUILDING W/0565ABC"], _ => true));
+        Assert.Empty(AssessmentReferences.ParseStructured("8816400825", ["BUILDING (w/ #0825)"], _ => true));
+        Assert.Empty(AssessmentReferences.ParseStructured("8816400825", ["BUILDING W/ #2400 SQ FT"], _ => true));
+        Assert.Empty(AssessmentReferences.ParseStructured("8032700200", ["BUILDING w #0200"], _ => true));
+        Assert.Empty(AssessmentReferences.ParseStructured("8032700200", ["PARKING LOT w 0195"], _ => true));
+        Assert.Empty(AssessmentReferences.ParseStructured("8032700200", ["WAREHOUSE w #2400 SQ FT"], _ => true));
+        Assert.Empty(AssessmentReferences.ParseStructured("8032700200", ["SHOW #0195"], _ => true));
     }
 
     [Theory]

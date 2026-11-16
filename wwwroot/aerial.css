@@ -16,6 +16,8 @@ input[type=range] { display: block; width: 100%; margin: 19px 0 17px; cursor: po
 input:disabled { cursor: default; }
 .check { display: inline-flex; align-items: center; gap: 9px; font-size: 13px; cursor: pointer; }
 .check input { width: 16px; height: 16px; margin: 0; }
+.view-actions { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+.view-actions button { font-size: 13px; }
 .address { padding: 24px 28px 28px; text-align: center; }
 h2 { margin: 0; font-size: 25px; font-weight: 600; letter-spacing: -.6px; overflow-wrap: anywhere; }
 .lot-area { margin: 8px 0 0; color: #64777c; font-size: 14px; font-variant-numeric: tabular-nums; }
@@ -23,11 +25,14 @@ footer { color: #728080; font-size: 12px; line-height: 1.6; padding: 18px 3px 0;
 .leaflet-control-attribution { font-size: 10px; }
 .image-message { position: absolute; inset: 0; z-index: 650; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 16px; background: #e7ece7f5; padding: 40px; text-align: center; }
 .error { color: #9c3026; }
-button { font: inherit; color: #1e555d; background: white; border: 1px solid #b9cecd; border-radius: 6px; padding: 8px 20px; cursor: pointer; }
+button, .map-link { font: inherit; color: #1e555d; background: white; border: 1px solid #b9cecd; border-radius: 6px; padding: 8px 20px; cursor: pointer; }
+button:disabled { cursor: default; opacity: .5; }
+.map-link { display: inline-block; margin-top: 16px; font-size: 13px; text-decoration: none; }
 [hidden] { display: none !important; }
 details { margin-top: 14px; color: #64777c; font-size: 13px; }
 summary { cursor: pointer; }
 ul { list-style: none; padding: 0; line-height: 1.7; }
+.assessor-link { margin-left: 12px; white-space: nowrap; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
 input:focus-visible, a:focus-visible, button:focus-visible, summary:focus-visible { outline: 3px solid #007e85; outline-offset: 4px; }
 @media (max-width: 600px) {

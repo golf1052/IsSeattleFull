@@ -339,14 +339,185 @@
                     : "King County parcel snapshot: retrieval date unverified.";
             element("filters").disabled = false;
             applyFilters();
+            element("errorMessage").hidden = true;
             element("loadStatus").textContent = `${number.format(features.length)} exported candidates. ${number.format(missing)} without usable geometry are not mapped.` +
                 (aerialGroups.length ? ` ${number.format(aerialGroups.length)} aerial-photo groups.` : "");
+            return true;
         } catch (error) {
             console.error("Unable to load parcel map:", error);
             element("filters").disabled = true;
             showError(error.message);
+            return false;
         }
     }
 
+    const reviewedPins = new Set();
+    let exportTimer;
+    let retryExportAction;
+
+    async function readReviewResponse(response) {
+        if (!response.ok) {
+            let message = `Parcel review request failed (HTTP ${response.status}).`;
+            if (response.headers.get("content-type")?.includes("json")) {
+                const problem = await response.json();
+                message = problem.detail || problem.title || message;
+            }
+            throw new Error(message);
+        }
+        return response.json();
+    }
+
+    function showReviewError(message) {
+        element("reviewError").textContent = message;
+        element("reviewError").hidden = false;
+    }
+
+    function showExportRetry(label, action) {
+        element("retryExport").textContent = label;
+        element("retryExport").hidden = false;
+        element("retryExport").disabled = false;
+        retryExportAction = action;
+    }
+
+    async function readReviewedPins() {
+        const response = await fetch("/api/reviewed-exclusions", { cache: "no-store" });
+        if (response.status === 404) return false;
+        element("reviewEditor").hidden = false;
+        const entries = await readReviewResponse(response);
+        if (!Array.isArray(entries) || entries.some(entry => typeof entry?.pin !== "string"))
+            throw new Error("The reviewed exclusions response is invalid. Check the local server logs.");
+        reviewedPins.clear();
+        for (const entry of entries) reviewedPins.add(entry.pin);
+        return true;
+    }
+
+    async function watchExport(status = null, reloadMap = true) {
+        clearTimeout(exportTimer);
+        element("retryExport").hidden = true;
+        element("reviewError").hidden = true;
+        try {
+            status ??= await readReviewResponse(await fetch("/api/reviewed-exclusions/export", { cache: "no-store" }));
+            if (!["idle", "queued", "exporting", "publishing", "succeeded", "failed"].includes(status.state) ||
+                typeof status.message !== "string")
+                throw new Error("The export status is invalid. Check the local server logs.");
+            const busy = ["queued", "exporting", "publishing"].includes(status.state);
+            element("reviewFields").disabled = busy;
+            element("reviewStatus").textContent = status.message;
+            if (busy) {
+                exportTimer = setTimeout(() => watchExport(), 1000);
+            } else if (status.state === "failed") {
+                showReviewError(status.error || "The export failed. Saved exclusions are retained; check the local server logs.");
+                showExportRetry("Retry export", startExport);
+            } else if (status.state === "succeeded") {
+                if (!reloadMap) {
+                    element("reviewStatus").textContent = "Saved exclusions have been exported.";
+                } else if (await load()) {
+                    element("reviewStatus").textContent = "Exclusions saved and exports regenerated. The map is up to date.";
+                } else {
+                    element("reviewStatus").textContent = "Exports regenerated, but the map could not be reloaded.";
+                    showExportRetry("Reload map", () => watchExport(status));
+                }
+            } else {
+                showExportRetry("Regenerate exports", startExport);
+            }
+        } catch (error) {
+            console.error("Unable to read local export progress:", error);
+            element("reviewFields").disabled = true;
+            element("reviewStatus").textContent = "Could not confirm export status. Saved exclusions have not been removed.";
+            showReviewError(error.message);
+            showExportRetry("Check export status", checkExportStatus);
+        }
+    }
+
+    async function checkExportStatus() {
+        try {
+            await readReviewedPins();
+            await watchExport();
+        } catch (error) {
+            console.error("Unable to reload reviewed exclusions:", error);
+            showReviewError(error.message);
+        }
+    }
+
+    async function startExport() {
+        element("reviewFields").disabled = true;
+        element("retryExport").disabled = true;
+        element("reviewError").hidden = true;
+        element("reviewStatus").textContent = "Starting export using saved exclusions...";
+        try {
+            const response = await fetch("/api/reviewed-exclusions/export", {
+                method: "POST", headers: { "Content-Type": "application/json" }, cache: "no-store"
+            });
+            await watchExport(await readReviewResponse(response));
+        } catch (error) {
+            console.error("Unable to start a local export:", error);
+            element("reviewStatus").textContent = "Export start was not confirmed. Saved exclusions are retained.";
+            showReviewError(error.message);
+            showExportRetry("Check export status", checkExportStatus);
+        }
+    }
+
+    element("retryExport").addEventListener("click", () => retryExportAction?.());
+
+    async function loadReviewEditor() {
+        try {
+            if (!await readReviewedPins()) return;
+            await watchExport(null, false);
+        } catch (error) {
+            console.error("Unable to load the local parcel review editor:", error);
+            element("reviewEditor").hidden = false;
+            showReviewError(error.message);
+        }
+    }
+
+    element("reviewForm").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        if (element("reviewFields").disabled) return;
+        element("reviewError").hidden = true;
+        element("reviewStatus").textContent = "";
+        const pins = element("exclusionPins").value.trim().split(/[\s,]+/).filter(Boolean);
+        const note = element("exclusionNote").value.trim();
+        if (pins.length === 0 || pins.some(pin => !/^[0-9]{10}$/.test(pin))) {
+            showReviewError("Enter parcel IDs containing exactly 10 digits, including leading zeros.");
+            return;
+        }
+        if (new Set(pins).size !== pins.length) {
+            showReviewError("A parcel ID was entered more than once. Each ID should appear only once.");
+            return;
+        }
+        if (!note) {
+            showReviewError("Enter a note explaining why these parcels should be excluded.");
+            return;
+        }
+        const existing = pins.filter(pin => reviewedPins.has(pin));
+        if (existing.length > 0) {
+            showReviewError(`Already reviewed: ${existing.join(", ")}. Existing notes will not be overwritten.`);
+            return;
+        }
+        element("reviewFields").disabled = true;
+        element("retryExport").disabled = true;
+        element("reviewStatus").textContent = "Saving reviewed exclusions...";
+        try {
+            const response = await fetch("/api/reviewed-exclusions", {
+                method: "POST", headers: { "Content-Type": "application/json" }, cache: "no-store",
+                body: JSON.stringify({ pins, note })
+            });
+            const result = await readReviewResponse(response);
+            if (result.saved !== pins.length)
+                throw new Error("The save response was incomplete. Check reviewed-exclusions.json before retrying.");
+            for (const pin of pins) reviewedPins.add(pin);
+            element("exclusionPins").value = "";
+            element("exclusionNote").value = "";
+            await watchExport(result);
+        } catch (error) {
+            console.error("Unable to save local parcel exclusions:", error);
+            element("reviewStatus").textContent = "Exclusions were not confirmed saved.";
+            showReviewError(error.message);
+            element("reviewFields").disabled = false;
+            showExportRetry("Check export status", checkExportStatus);
+        }
+    });
+
     load();
+    loadReviewEditor();
 })();
